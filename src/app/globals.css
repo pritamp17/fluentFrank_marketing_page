@@ -1,0 +1,140 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/*
+ * Theme tokens as "R G B" channel triples.
+ * Light (default) lives on :root; dark overrides on .dark (toggled by next-themes).
+ * Accent is theme-aware: green in light, gold in dark.
+ */
+@layer base {
+  :root {
+    --bg: 255 255 255;
+    --surface: 248 250 249;
+    --surface-2: 240 245 242;
+    --border: 224 232 227;
+
+    --fg: 14 27 18;
+    --fg-muted: 74 92 82;
+    --fg-subtle: 120 134 127;
+
+    --accent: 22 163 74; /* #16A34A — brand green */
+    --accent-strong: 21 128 61; /* #15803D — AA green-on-white */
+    --accent-fg: 255 255 255;
+    --accent-soft: 220 252 231; /* #DCFCE7 */
+
+    --sage: 34 197 94;
+    --amber: 180 83 9; /* correction emphasis, never alarm */
+    --amber-soft: 254 243 199;
+    --danger: 220 38 38; /* system errors ONLY */
+    --ring: 22 163 74;
+  }
+
+  .dark {
+    --bg: 9 12 10;
+    --surface: 18 22 19;
+    --surface-2: 27 32 28;
+    --border: 39 46 42;
+
+    --fg: 240 244 241;
+    --fg-muted: 158 170 162;
+    --fg-subtle: 112 124 117;
+
+    --accent: 200 162 76; /* #C8A24C — brand gold */
+    --accent-strong: 214 178 96;
+    --accent-fg: 10 12 10;
+    --accent-soft: 41 35 19;
+
+    --sage: 52 211 153;
+    --amber: 245 196 110;
+    --amber-soft: 49 40 18;
+    --danger: 248 113 113;
+    --ring: 200 162 76;
+  }
+
+  * {
+    border-color: rgb(var(--border));
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    @apply bg-bg text-fg font-sans antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    @apply font-display;
+    text-wrap: balance;
+  }
+
+  ::selection {
+    background-color: rgb(var(--accent) / 0.18);
+    color: rgb(var(--fg));
+  }
+
+  :focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 2px rgb(var(--bg)), 0 0 0 4px rgb(var(--ring) / 0.7);
+    border-radius: 4px;
+  }
+}
+
+@layer utilities {
+  /* Soft radial "green mist" wash used behind hero / section accents. */
+  .bg-mist {
+    background-image: radial-gradient(
+      60% 50% at 50% 0%,
+      rgb(var(--accent) / 0.16) 0%,
+      rgb(var(--accent) / 0.06) 35%,
+      transparent 70%
+    );
+  }
+
+  .bg-grid {
+    background-image:
+      linear-gradient(rgb(var(--border) / 0.6) 1px, transparent 1px),
+      linear-gradient(90deg, rgb(var(--border) / 0.6) 1px, transparent 1px);
+    background-size: 44px 44px;
+    -webkit-mask-image: radial-gradient(70% 60% at 50% 40%, black 0%, transparent 75%);
+    mask-image: radial-gradient(70% 60% at 50% 40%, black 0%, transparent 75%);
+  }
+
+  .text-gradient {
+    background: linear-gradient(
+      100deg,
+      rgb(var(--accent-strong)) 0%,
+      rgb(var(--accent)) 55%,
+      rgb(var(--sage)) 100%
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+  }
+
+  .mask-fade-x {
+    -webkit-mask-image: linear-gradient(90deg, transparent, black 8%, black 92%, transparent);
+    mask-image: linear-gradient(90deg, transparent, black 8%, black 92%, transparent);
+  }
+}
+
+/* Honor reduced-motion: collapse all motion to near-instant. */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
