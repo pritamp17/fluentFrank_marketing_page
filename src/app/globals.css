@@ -119,6 +119,23 @@
     color: transparent;
   }
 
+  /* Animated sheen variant for the hero's highlighted word. */
+  .text-gradient-animated {
+    background: linear-gradient(
+      100deg,
+      rgb(var(--accent-strong)) 0%,
+      rgb(var(--accent)) 40%,
+      rgb(var(--sage)) 60%,
+      rgb(var(--accent-strong)) 100%
+    );
+    background-size: 220% 100%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+    animation: gradientShift 7s linear infinite;
+  }
+
   .mask-fade-x {
     -webkit-mask-image: linear-gradient(90deg, transparent, black 8%, black 92%, transparent);
     mask-image: linear-gradient(90deg, transparent, black 8%, black 92%, transparent);
@@ -136,5 +153,11 @@
     animation-duration: 0.001ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.001ms !important;
+  }
+}
+
+@keyframes gradientShift {
+  to {
+    background-position: 220% 0;
   }
 }
