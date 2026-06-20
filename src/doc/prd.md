@@ -8,8 +8,9 @@
 ## 1. Overview
 
 A high-conversion, animated marketing landing page for **FluentFrank** — a web-first
-conversational AI language coach that gets adults *speaking* Spanish without freezing, corrects
-them honestly (in their own language), and remembers what they keep getting wrong.
+conversational AI language coach that gets adults *speaking* a new language without freezing
+(a 12-language roster, Spanish-first), corrects them honestly (in their own language), and
+remembers what they keep getting wrong.
 
 - **Repo:** `github.com/pritamp17/fluentFrank_marketing_page` (standalone marketing site — separate from the main app)
 - **Primary CTA target:** `https://useapp.fluentfrank.com`
@@ -51,6 +52,7 @@ them honestly (in their own language), and remembers what they keep getting wron
 | 4 | **How it works** | 4 beats: say-it → hear → honest correction → remember |
 | 5 | **Try it (live demo)** | Interactive correction-card demo |
 | 6 | **Features** | 3 benefit-led pillars |
+| — | **Languages** | The 12-language roster — same honest coaching in each |
 | 7 | **About** | "Why we're not scammers" + credibility chips |
 | 8 | **Social proof** | User testimonials |
 | 9 | **Pricing** | Free vs Pro, one plan highlighted |
@@ -92,26 +94,26 @@ src/
   doc/            prd.md (this file)
 ```
 
-- **Copy & config are centralized:** all strings in `content.ts`, brand/links/pricing/assets in `site.ts`, magic-string-free via `enums.ts` (`Theme`, `SectionId`, `BillingInterval`, `PlanId`, `FeatureId`, `CorrectionSeverity`, `InputMode`, `DemoPhase`).
+- **Copy & config are centralized:** all strings in `content.ts`, brand/links/pricing/assets in `site.ts`, magic-string-free via `enums.ts` (`Theme`, `SectionId`, `BillingInterval`, `Language`, `PlanId`, `FeatureId`, `CorrectionSeverity`, `DemoPhase`).
 
-## 9. Interactive Demo (`CorrectionDemo.tsx`)
+## 9. Self-Playing Demo (`CorrectionDemo.tsx`)
 
-The product's "aha" in one card, runnable in-browser with no signup:
+The product's "aha" in one card — a **self-playing loop with no fake input** (nothing pretends to be a wired-up chatbot):
 
-- **Flow:** say it in English → *listening* → *processing* → reveal the natural Spanish + **"Hear it"** (plays a generated TTS clip, with a browser `speechSynthesis` es-ES fallback) + a **CorrectionCard** (nailed-first; what you said struck-through; the fix; the *why* in English) + a memory note.
+- **Loop:** for each exchange, *listening* → *processing (the honest check)* → reveal the natural Spanish + **"Hear it"** (plays a generated TTS clip, with a browser `speechSynthesis` es-ES fallback) + a **CorrectionCard** (nailed-first; what you said struck-through; the fix; the *why* in the learner's language) + a memory note; then it advances and repeats.
 - **Three scripted exchanges teach real points:** a polite request (*Nailed*), **ser vs estar** (location), **por vs para**.
-- Honest fallback for free-typed input (no fake translation — it nudges to the app).
-- Input-mode bar (Voice / Text / **Say it in English**) showcases the L1-first wedge.
+- **Controls:** progress dots to scrub between examples + a play/pause toggle; the real "Hear it" audio is user-initiated and auto-advance pauses while a clip plays.
+- Split into small pieces (`Waveform`, `TypingDots`, orchestrator). Fully `prefers-reduced-motion` safe (static reveal + manual dots).
 
 ## 10. Hero Animation — the "Language Field" (`HeroAtmosphere.tsx`)
 
 Ambient motion that depicts the product **indirectly** (finding your voice across languages) rather than copying the app UI:
 
 - **Breathing green aurora** (calm = the opposite of speaking anxiety)
-- **Flowing "voice-wave" ribbons** — seamless sine paths (wavelengths divide the loop distance), evoking speech
-- **Floating words that morph English → Spanish** — `hello→hola`, `thank you→gracias`, `of course→claro`, `cheers→salud`, `let's go→vamos`, `see you soon→nos vemos`, `good morning→buenos días` — low opacity, in the negative space
+- **Vibrating voice-wave ribbons** — sine paths whose amplitude + phase morph on a loop so the lines look like a living voice, with a soft accent glow
+- **Floating words that morph across all 12 languages** — one idea (hello, thank you, cheers…) cycling through `hola / bonjour / こんにちは / 你好 / नमस्ते / مرحبا …`, low opacity, in the negative space
 - **Subtle twinkling sparkles** + a **radial vignette** so the headline and demo card stay crisp
-- **Animated gradient sheen** on the headline word "Spanish"
+- **Animated language cycler** (`LanguageCycler.tsx`) — the headline's target language rotates ("Finally speak *Spanish → French → German → Japanese …*") through the gradient sheen, behind an invisible sizer stack so the headline never reflows
 - Everything collapses to a calm static state under `prefers-reduced-motion`; GPU-light (transform/opacity only).
 
 ## 11. Media Assets
@@ -129,8 +131,9 @@ Generated in-session and served from durable public URLs (referenced via `ASSETS
 
 ## 12. Pricing (mirrors the product)
 
-- **Free:** daily voice practice, unlimited text, honest corrections, core scenarios.
-- **Pro:** **$12/mo** or **$79/yr** (~45% off), 7-day free trial, unlimited voice, mistake memory, all scenarios + daily plan, pronunciation flags.
+- **Free:** daily voice practice, unlimited text, honest corrections, all 12 languages, core scenarios.
+- **Pro:** **$3.99/week** or **$80/year** (~61% off the weekly run-rate, ≈$1.54/wk effective), 7-day free trial, unlimited voice, mistake memory, all scenarios + daily plan, pronunciation flags.
+- **Token top-ups:** extra speaking minutes can be bought anytime — surfaced in the FAQ, not the pricing cards (keeps the plan choice simple).
 - **Dodo Payments** (Merchant of Record) — secure checkout, cancel anytime. Reverse-trial note (keep a taste of Pro memory for 3 sessions if the trial is dismissed).
 
 ## 13. Key Decisions & Tradeoffs
@@ -165,6 +168,7 @@ Deploy: import the repo into Vercel (preset **Next.js**, no env vars).
 | #1 | `feat/landing-page` | Initial landing page — full Next.js + Tailwind + Framer Motion site (merged) |
 | #2 | `feat/hero-animation` | Hero "language field" animation (aurora, voice ribbons, EN→ES morphing words, sparkles, gradient sheen) |
 | #3 | `docs/session-prd` | This PRD / build log |
+| #4 | `feat/multi-language-premium-hero-pricing` | Multi-language: 12-language roster (`lib/languages.ts`), new **Languages** section, animated headline **LanguageCycler**; **vibrating** hero voice-waves + words morphing across all 12; **self-playing demo** (removed the fake input box); **Weekly $3.99 / Yearly $80** pricing with a prominent savings highlight + a token-top-up FAQ; premium polish; responsive |
 
 ## 17. Backlog / Future
 

@@ -2,11 +2,13 @@ import { ArrowRight, Star } from "lucide-react";
 
 import { HeroPreview } from "@/components/demo/HeroPreview";
 import { HeroAtmosphere } from "@/components/hero/HeroAtmosphere";
+import { LanguageCycler } from "@/components/hero/LanguageCycler";
 import { Reveal } from "@/components/motion/Reveal";
 import { Button } from "@/components/ui/Button";
 import { Container } from "@/components/ui/Container";
 import { Eyebrow } from "@/components/ui/Eyebrow";
 import { HERO, HERO_STATS } from "@/lib/content";
+import { HERO_CYCLE_WORDS } from "@/lib/languages";
 import { SectionId } from "@/lib/enums";
 import { PRIMARY_CTA, SECONDARY_CTA, SOCIAL_PROOF } from "@/lib/site";
 
@@ -25,7 +27,7 @@ export function Hero() {
             <Reveal delay={0.05}>
               <h1 className="mt-5 max-w-xl text-balance text-4xl font-semibold leading-[1.05] tracking-tight sm:text-5xl lg:text-[3.4rem]">
                 {HERO.headlineLead}
-                <span className="text-gradient-animated">{HERO.headlineHighlight}</span>
+                <LanguageCycler words={HERO_CYCLE_WORDS} />
                 {HERO.headlineTail}
               </h1>
             </Reveal>

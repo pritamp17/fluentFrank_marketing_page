@@ -29,11 +29,11 @@ export function HeroPreview({ className }: { readonly className?: string }) {
           </span>
           <div className="leading-tight">
             <p className="text-sm font-semibold text-fg">Frank</p>
-            <p className="text-[0.7rem] text-fg-subtle">Your Spanish coach</p>
+            <p className="text-[0.7rem] text-fg-subtle">Your language coach</p>
           </div>
         </div>
         <span className="rounded-full border border-border px-2.5 py-1 text-[0.7rem] font-medium text-fg-subtle">
-          Say it in English
+          Say it in your language
         </span>
       </div>
 

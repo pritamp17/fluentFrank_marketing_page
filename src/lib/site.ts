@@ -7,7 +7,7 @@ export const SITE = {
   persona: "Frank",
   tagline: "Say it in your language. We'll teach you to say it in theirs.",
   description:
-    "FluentFrank is the AI coach that actually gets you speaking Spanish — it corrects you honestly, explains the fix in English, and remembers what you keep getting wrong.",
+    "FluentFrank is the AI coach that actually gets you speaking a new language — Spanish, French, German and 9 more. It corrects you honestly, explains the fix in your own language, and remembers what you keep getting wrong.",
   url: "https://fluentfrank.com",
   appUrl: "https://useapp.fluentfrank.com",
   email: "hello@fluentfrank.com",
@@ -25,29 +25,37 @@ export const PRIMARY_CTA = {
 } as const;
 
 export const SECONDARY_CTA = {
-  label: "Try it live",
+  label: "Watch the demo",
   href: `#${SectionId.Demo}`,
 } as const;
 
 export const NAV_LINKS: readonly NavLink[] = [
   { label: "How it works", href: `#${SectionId.HowItWorks}` },
-  { label: "Try it", href: `#${SectionId.Demo}` },
+  { label: "Demo", href: `#${SectionId.Demo}` },
   { label: "Features", href: `#${SectionId.Features}` },
+  { label: "Languages", href: `#${SectionId.Languages}` },
   { label: "Pricing", href: `#${SectionId.Pricing}` },
   { label: "FAQ", href: `#${SectionId.Faq}` },
 ];
 
-/** Pricing — mirrors the product (Dodo Payments, Merchant of Record). */
+/**
+ * Pricing — mirrors the product (Dodo Payments, Merchant of Record).
+ * Two paid cadences: a low-friction weekly and a discounted yearly.
+ * Yearly ($80) vs the weekly run-rate ($3.99 × 52 = $207.48) ≈ 61% off
+ * (~$1.54/wk effective). Free stays free. Extra usage = token top-ups (FAQ).
+ */
 export const PRICING = {
   currency: "USD",
   symbol: "$",
   byInterval: {
-    [BillingInterval.Monthly]: 12,
-    [BillingInterval.Annual]: 79,
+    [BillingInterval.Weekly]: 3.99,
+    [BillingInterval.Yearly]: 80,
   },
+  weeksPerYear: 52,
   trialDays: 7,
   reverseTrialSessions: 3,
-  annualSavingsPct: 45,
+  /** % saved by paying yearly instead of weekly for a year. */
+  annualSavingsPct: 61,
 } as const;
 
 /**

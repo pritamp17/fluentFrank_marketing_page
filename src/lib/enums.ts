@@ -17,6 +17,7 @@ export enum SectionId {
   HowItWorks = "how-it-works",
   Demo = "try-it",
   Features = "features",
+  Languages = "languages",
   About = "about",
   Proof = "stories",
   Pricing = "pricing",
@@ -26,8 +27,28 @@ export enum SectionId {
 
 /** Billing cadence for the pricing toggle. */
 export enum BillingInterval {
-  Monthly = "monthly",
-  Annual = "annual",
+  Weekly = "weekly",
+  Yearly = "yearly",
+}
+
+/**
+ * Supported target languages. The value is the BCP-47 primary subtag, used as a
+ * stable key (and handy for any future `lang`/`hreflang` wiring). Spanish is the
+ * live flagship; the rest are part of the multi-language roster.
+ */
+export enum Language {
+  English = "en",
+  Spanish = "es",
+  French = "fr",
+  German = "de",
+  Italian = "it",
+  Japanese = "ja",
+  Korean = "ko",
+  Mandarin = "zh",
+  Portuguese = "pt",
+  Hindi = "hi",
+  Arabic = "ar",
+  Russian = "ru",
 }
 
 /** Pricing plan identity. */
@@ -53,14 +74,7 @@ export enum CorrectionSeverity {
   Note = "note",
 }
 
-/** Input modes in the live demo's mode bar. */
-export enum InputMode {
-  Voice = "voice",
-  Text = "text",
-  SayItInEnglish = "say-it-en",
-}
-
-/** Demo turn lifecycle. */
+/** Auto-playing demo turn lifecycle. */
 export enum DemoPhase {
   Idle = "idle",
   Listening = "listening",

@@ -16,6 +16,7 @@ import {
 } from "lucide-react";
 
 import { BillingInterval, CorrectionSeverity, FeatureId, PlanId } from "@/lib/enums";
+import { LANGUAGE_COUNT, LANGUAGES } from "@/lib/languages";
 import { ASSETS, PRICING, SITE } from "@/lib/site";
 import type {
   DemoExchange,
@@ -34,11 +35,10 @@ import type {
 /* ------------------------------------------------------------------ Hero -- */
 
 export const HERO = {
-  eyebrow: "Conversational AI coach · English → Spanish",
-  headline: "Finally speak Spanish — without freezing.",
-  // Split for the hero's gradient-sheen treatment on the key word.
+  eyebrow: `Conversational AI coach · ${LANGUAGE_COUNT} languages`,
+  headline: "Finally speak a new language — without freezing.",
+  // Lead + tail wrap the hero's animated language cycler (see LanguageCycler).
   headlineLead: "Finally speak ",
-  headlineHighlight: "Spanish",
   headlineTail: " — without freezing.",
   // ≤ 2 sentences (Kulkov rule).
   subhead:
@@ -48,7 +48,7 @@ export const HERO = {
 
 export const HERO_STATS: readonly Stat[] = [
   { value: "60 sec", label: "to your first real correction" },
-  { value: "L1-first", label: "start in English, always" },
+  { value: "L1-first", label: "start in your own language" },
   { value: "Remembers", label: "every mistake you make" },
 ];
 
@@ -128,13 +128,13 @@ export const HOW_STEPS: readonly HowItWorksStep[] = [
   {
     index: 1,
     title: "Say it in your language",
-    body: "Stuck? Type or speak in English. Frank shows you exactly how to say it in Spanish.",
+    body: "Stuck? Type or speak in your own language. Frank shows you exactly how to say it in the one you're learning.",
     icon: Languages,
   },
   {
     index: 2,
     title: "Hear it, then say it back",
-    body: "Frank reads the natural Spanish aloud and listens as you repeat it at your own pace.",
+    body: "Frank reads the natural phrase aloud and listens as you repeat it at your own pace.",
     icon: Volume2,
   },
   {
@@ -154,10 +154,10 @@ export const HOW_STEPS: readonly HowItWorksStep[] = [
 /* ----------------------------------------------------------------- Demo -- */
 
 export const DEMO = {
-  eyebrow: "Try it right here",
+  eyebrow: "See it in action",
   title: "This is the whole product, in one card.",
   subtitle:
-    "Pick something you'd actually want to say. Watch Frank teach it, read it aloud, and catch the mistake you didn't know you were making.",
+    "Watch Frank teach a real phrase, read it aloud, and catch the mistake you didn't know you were making — playing on a loop. Hear any line, or scrub between examples.",
   footnote: "No signup. This preview runs entirely in your browser.",
 } as const;
 
@@ -225,7 +225,7 @@ export const FEATURES: readonly Feature[] = [
       "A dedicated correction check runs in parallel with every reply — it can't be sweet-talked into saying “perfect” when it isn't.",
     bullets: [
       "What you said → the fix → the why, every single turn",
-      "Explained in English, so the lesson actually lands",
+      "Explained in your own language, so the lesson actually lands",
       "Calm tone — red is for system errors, never for you",
     ],
     icon: CheckCheck,
@@ -246,17 +246,27 @@ export const FEATURES: readonly Feature[] = [
   {
     id: FeatureId.NativeLanguageStart,
     eyebrow: "Start where you are",
-    title: "Begin in English. Always.",
+    title: "Begin in your language. Always.",
     description:
       "Total beginner? You never stare at a blank screen. Say it in your language and Frank meets you exactly there.",
     bullets: [
-      "No more freezing at “talk to me in Spanish”",
+      "No more freezing at “talk to me in your new language”",
       "Survival scenarios: café, doctor, interview, directions",
       "From zero to a real exchange in under a minute",
     ],
     icon: Languages,
   },
 ];
+
+/* ----------------------------------------------------------- Languages -- */
+
+export const LANGUAGES_SECTION = {
+  eyebrow: `${LANGUAGE_COUNT} languages, one honest coach`,
+  title: "Speak the language that opens your world.",
+  subtitle:
+    "The world's most-studied languages and the ones that move careers — each taught the FluentFrank way: you start in your own language, and Frank coaches you into theirs.",
+  footnote: "Same honest correction, mistake memory, and say-it-in-your-language coaching in every one.",
+} as const;
 
 /* ---------------------------------------------------------------- About -- */
 
@@ -328,7 +338,7 @@ export const ENDORSEMENT: Endorsement = {
 export const PRICING_SECTION = {
   eyebrow: "Pricing",
   title: "Priced like an app, not a tutor.",
-  subtitle: "Start free. Upgrade when speaking every day becomes the habit.",
+  subtitle: `Start free. Go weekly to test the waters — or save ${PRICING.annualSavingsPct}% with yearly once speaking every day becomes the habit.`,
 } as const;
 
 export const PLANS: readonly Plan[] = [
@@ -337,8 +347,8 @@ export const PLANS: readonly Plan[] = [
     name: "Free",
     tagline: "Start speaking today",
     priceByInterval: {
-      [BillingInterval.Monthly]: 0,
-      [BillingInterval.Annual]: 0,
+      [BillingInterval.Weekly]: 0,
+      [BillingInterval.Yearly]: 0,
     },
     featured: false,
     ctaLabel: "Start free",
@@ -346,6 +356,7 @@ export const PLANS: readonly Plan[] = [
       "Daily voice practice",
       "Unlimited text practice",
       "Honest, in-line corrections",
+      `All ${LANGUAGE_COUNT} languages`,
       "Core survival scenarios",
     ],
   },
@@ -354,8 +365,8 @@ export const PLANS: readonly Plan[] = [
     name: "Pro",
     tagline: "Speak every day",
     priceByInterval: {
-      [BillingInterval.Monthly]: PRICING.byInterval[BillingInterval.Monthly],
-      [BillingInterval.Annual]: PRICING.byInterval[BillingInterval.Annual],
+      [BillingInterval.Weekly]: PRICING.byInterval[BillingInterval.Weekly],
+      [BillingInterval.Yearly]: PRICING.byInterval[BillingInterval.Yearly],
     },
     featured: true,
     ctaLabel: `Start ${PRICING.trialDays}-day free trial`,
@@ -370,6 +381,7 @@ export const PLANS: readonly Plan[] = [
 ];
 
 export const PLAN_CAPABILITIES: readonly PlanCapability[] = [
+  { label: `All ${LANGUAGE_COUNT} languages`, free: true, pro: true },
   { label: "Honest correction cards", free: true, pro: true },
   { label: "Say it in your language", free: true, pro: true },
   { label: "Voice conversations", free: "Limited daily", pro: "Unlimited" },
@@ -397,22 +409,26 @@ export const FAQ_ITEMS: readonly FaqItem[] = [
   {
     question: "Will it embarrass me when I get things wrong?",
     answer:
-      "Never. Frank leads with what you nailed, explains the fix in English, and reserves red for genuine system errors — not for you. Being corrected should feel like help, not a grade.",
+      "Never. Frank leads with what you nailed, explains the fix in your own language, and reserves red for genuine system errors — not for you. Being corrected should feel like help, not a grade.",
   },
   {
     question: "I'm a total beginner. Will I be lost?",
     answer:
-      "That's exactly who “Say it in English” is built for. You start in your own language and Frank bridges you into Spanish, one real phrase at a time.",
+      "That's exactly who “Say it in your language” is built for. You start in your own language and Frank bridges you into your target language, one real phrase at a time.",
   },
   {
     question: "Isn't ChatGPT free?",
     answer:
-      "It is — and it'll happily agree with broken Spanish. Frank runs correction as a separate check that can't be talked out of teaching you, and it remembers your mistakes across sessions.",
+      "It is — and it'll happily agree with broken grammar. Frank runs correction as a separate check that can't be talked out of teaching you, and it remembers your mistakes across sessions.",
   },
   {
     question: "Which languages can I learn?",
+    answer: `All ${LANGUAGE_COUNT}, available today: ${LANGUAGES.map((language) => language.name).join(", ")}. Frank starts you in your own language and coaches you into any of them — and we add more over time.`,
+  },
+  {
+    question: "What if I want to practise more than my plan includes?",
     answer:
-      "We're launching English → Spanish and doing it exceptionally well. More language pairs are on the way.",
+      "You can top up anytime with tokens — each token is a block of extra speaking minutes. Grab a pack whenever you want more conversation: no plan change, no commitment.",
   },
   {
     question: "Do I have to talk out loud?",
@@ -431,6 +447,6 @@ export const FAQ_ITEMS: readonly FaqItem[] = [
 export const FINAL_CTA = {
   eyebrow: "Your move",
   title: "The barista is waiting. So is your partner's family.",
-  subtitle: "Have your first real Spanish conversation in the next 60 seconds.",
+  subtitle: "Have your first real conversation in the next 60 seconds.",
   microProof: "Free to start · No credit card · Cancel anytime",
 } as const;
