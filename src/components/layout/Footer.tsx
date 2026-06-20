@@ -2,6 +2,7 @@ import { Wordmark } from "@/components/brand/Wordmark";
 import { Button } from "@/components/ui/Button";
 import { Container } from "@/components/ui/Container";
 import { SectionId } from "@/lib/enums";
+import { LANGUAGE_COUNT } from "@/lib/languages";
 import { NAV_LINKS, PRIMARY_CTA, SITE } from "@/lib/site";
 
 const COMPANY_LINKS: readonly { label: string; href: string; newTab?: boolean }[] = [
@@ -69,7 +70,7 @@ export function Footer() {
           <p>
             © {year} {SITE.name} — a {SITE.company} product.
           </p>
-          <p>English → Spanish · More languages on the way.</p>
+          <p>{LANGUAGE_COUNT} languages · say it in yours, speak in theirs.</p>
         </div>
       </Container>
     </footer>

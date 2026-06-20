@@ -35,8 +35,11 @@ function formatPrice(amount: number): string {
 }
 
 export function Pricing() {
-  const [interval, setInterval] = useState<BillingInterval>(BillingInterval.Annual);
-  const isAnnual = interval === BillingInterval.Annual;
+  const [interval, setInterval] = useState<BillingInterval>(BillingInterval.Yearly);
+  const isYearly = interval === BillingInterval.Yearly;
+
+  const weeklyRunRate = PRICING.byInterval[BillingInterval.Weekly] * PRICING.weeksPerYear;
+  const yearlySaved = Math.round(weeklyRunRate - PRICING.byInterval[BillingInterval.Yearly]);
 
   return (
     <Section id={SectionId.Pricing} className="bg-surface/40">
@@ -50,7 +53,7 @@ export function Pricing() {
         {/* Billing toggle */}
         <div className="mt-8 flex items-center justify-center">
           <div className="inline-flex items-center rounded-full border border-border bg-surface p-1">
-            {[BillingInterval.Monthly, BillingInterval.Annual].map((value) => (
+            {[BillingInterval.Weekly, BillingInterval.Yearly].map((value) => (
               <button
                 key={value}
                 type="button"
@@ -61,7 +64,7 @@ export function Pricing() {
                 )}
               >
                 {value}
-                {value === BillingInterval.Annual ? (
+                {value === BillingInterval.Yearly ? (
                   <span
                     className={cn(
                       "rounded-full px-1.5 py-0.5 text-[0.65rem] font-semibold",
@@ -104,17 +107,23 @@ export function Pricing() {
                     </span>
                     {!isFree ? (
                       <span className="text-sm text-fg-subtle">
-                        {isAnnual ? "/year" : "/month"}
+                        {isYearly ? "/year" : "/week"}
                       </span>
                     ) : null}
                   </div>
-                  <p className="mt-1 h-4 text-xs text-fg-subtle">
-                    {!isFree && isAnnual
-                      ? `Billed yearly · about ${PRICING.symbol}${(price / 12).toFixed(2)}/mo`
-                      : !isFree
-                        ? `${PRICING.trialDays}-day free trial`
-                        : ""}
+                  <p className="mt-1 min-h-[1.25rem] text-xs text-fg-subtle">
+                    {isFree
+                      ? ""
+                      : isYearly
+                        ? `Billed yearly · about ${PRICING.symbol}${(price / 12).toFixed(2)}/mo · just ${PRICING.symbol}${(price / PRICING.weeksPerYear).toFixed(2)}/wk`
+                        : `${PRICING.trialDays}-day free trial · billed weekly`}
                   </p>
+                  {!isFree && isYearly ? (
+                    <p className="mt-2 inline-flex w-fit items-center gap-1.5 rounded-full bg-accent-soft px-2.5 py-1 text-xs font-semibold text-accent-strong">
+                      Save {PRICING.symbol}
+                      {yearlySaved}/yr · {PRICING.annualSavingsPct}% off
+                    </p>
+                  ) : null}
 
                   <Button
                     href={PRIMARY_CTA.href}

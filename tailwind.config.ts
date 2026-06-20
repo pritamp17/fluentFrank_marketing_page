@@ -80,12 +80,17 @@ const config: Config = {
           "0%": { transform: "scaleX(0)" },
           "100%": { transform: "scaleX(1)" },
         },
+        fadeRise: {
+          "0%": { opacity: "0", transform: "translateY(6px)" },
+          "100%": { opacity: "1", transform: "translateY(0)" },
+        },
       },
       animation: {
         float: "float 7s ease-in-out infinite",
         mist: "mistDrift 16s ease-in-out infinite alternate",
         blink: "blink 1.1s steps(2, start) infinite",
         shimmer: "shimmer 2s linear infinite",
+        fadeRise: "fadeRise 0.5s ease-out",
       },
     },
   },
