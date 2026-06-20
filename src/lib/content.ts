@@ -36,6 +36,10 @@ import type {
 export const HERO = {
   eyebrow: "Conversational AI coach · English → Spanish",
   headline: "Finally speak Spanish — without freezing.",
+  // Split for the hero's gradient-sheen treatment on the key word.
+  headlineLead: "Finally speak ",
+  headlineHighlight: "Spanish",
+  headlineTail: " — without freezing.",
   // ≤ 2 sentences (Kulkov rule).
   subhead:
     "You can read it, but the second you have to speak, your mind goes blank. Frank gets you talking in your first minute — and gently fixes what you'd otherwise keep getting wrong.",

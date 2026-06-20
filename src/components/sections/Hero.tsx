@@ -1,6 +1,7 @@
 import { ArrowRight, Star } from "lucide-react";
 
 import { HeroPreview } from "@/components/demo/HeroPreview";
+import { HeroAtmosphere } from "@/components/hero/HeroAtmosphere";
 import { Reveal } from "@/components/motion/Reveal";
 import { Button } from "@/components/ui/Button";
 import { Container } from "@/components/ui/Container";
@@ -11,11 +12,10 @@ import { PRIMARY_CTA, SECONDARY_CTA, SOCIAL_PROOF } from "@/lib/site";
 
 export function Hero() {
   return (
-    <section id={SectionId.Hero} className="relative overflow-hidden pb-16 pt-28 sm:pt-32 lg:pb-24 lg:pt-40">
-      <div className="pointer-events-none absolute inset-0 bg-mist" aria-hidden />
-      <div className="pointer-events-none absolute inset-x-0 top-0 h-[34rem] bg-grid opacity-60" aria-hidden />
+    <section id={SectionId.Hero} className="relative isolate overflow-hidden pb-16 pt-28 sm:pt-32 lg:pb-24 lg:pt-40">
+      <HeroAtmosphere />
 
-      <Container className="relative">
+      <Container className="relative z-10">
         <div className="grid items-center gap-12 lg:grid-cols-[1.05fr_0.95fr] lg:gap-8">
           <div className="flex flex-col items-start">
             <Reveal>
@@ -24,7 +24,9 @@ export function Hero() {
 
             <Reveal delay={0.05}>
               <h1 className="mt-5 max-w-xl text-balance text-4xl font-semibold leading-[1.05] tracking-tight sm:text-5xl lg:text-[3.4rem]">
-                {HERO.headline}
+                {HERO.headlineLead}
+                <span className="text-gradient-animated">{HERO.headlineHighlight}</span>
+                {HERO.headlineTail}
               </h1>
             </Reveal>
 
