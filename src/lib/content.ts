@@ -406,7 +406,7 @@ export const PLANS: readonly Plan[] = [
   {
     id: PlanId.Free,
     name: "Free",
-    tagline: "Start speaking today",
+    tagline: "Try it out, no card needed",
     priceByInterval: {
       [BillingInterval.Weekly]: 0,
       [BillingInterval.Yearly]: 0,
@@ -414,10 +414,10 @@ export const PLANS: readonly Plan[] = [
     featured: false,
     ctaLabel: "Start free",
     perks: [
-      "Daily voice practice",
-      "Unlimited text practice",
+      "2 languages to try out",
+      "15 minutes of voice practice",
+      "Limited daily text practice",
       "Honest, in-line corrections",
-      `All ${LANGUAGE_COUNT} languages`,
       "Core survival scenarios",
     ],
   },
@@ -442,10 +442,11 @@ export const PLANS: readonly Plan[] = [
 ];
 
 export const PLAN_CAPABILITIES: readonly PlanCapability[] = [
-  { label: `All ${LANGUAGE_COUNT} languages`, free: true, pro: true },
+  { label: "Languages", free: "2 to try out", pro: `All ${LANGUAGE_COUNT}` },
   { label: "Honest correction cards", free: true, pro: true },
   { label: "Say it in your language", free: true, pro: true },
-  { label: "Voice conversations", free: "Limited daily", pro: "Unlimited" },
+  { label: "Voice practice", free: "15 min", pro: "Unlimited" },
+  { label: "Text practice", free: "Limited daily", pro: "Unlimited" },
   { label: "Cross-session mistake memory", free: false, pro: true },
   { label: "Survival scenarios", free: "Core", pro: "All + daily plan" },
   { label: "Pronunciation flags", free: false, pro: true },
