@@ -1,5 +1,5 @@
 /**
- * Centralized enums — referenced across components, content, and config so the
+ * Centralized enums, referenced across components, content, and config so the
  * codebase stays DRY and type-safe (no magic strings).
  */
 
@@ -10,13 +10,14 @@ export enum Theme {
   System = "system",
 }
 
-/** Section anchors — used for nav links and `id` attributes (single source). */
+/** Section anchors, used for nav links and `id` attributes (single source). */
 export enum SectionId {
   Hero = "top",
   Problem = "the-problem",
   HowItWorks = "how-it-works",
   Demo = "try-it",
   Features = "features",
+  Method = "the-method",
   Languages = "languages",
   About = "about",
   Proof = "stories",
@@ -65,7 +66,17 @@ export enum FeatureId {
 }
 
 /**
- * Correction tone. Calm by design — there is no "wrong". `Nailed` celebrates,
+ * The "method that compounds" differentiators, the systematic depth most AI
+ * tutors skip (writing system, exact pronunciation, spaced review + CEFR).
+ */
+export enum MethodFeatureId {
+  Foundations = "foundations",
+  Pronunciation = "pronunciation",
+  SpacedReview = "spaced-review",
+}
+
+/**
+ * Correction tone. Calm by design, there is no "wrong". `Nailed` celebrates,
  * the rest are framed as data + a next step. Red is reserved for system errors.
  */
 export enum CorrectionSeverity {

@@ -7,7 +7,7 @@ import { LANGUAGES_SECTION } from "@/lib/content";
 import { SectionId } from "@/lib/enums";
 import { LANGUAGES } from "@/lib/languages";
 
-/** The multi-language roster — the same honest coaching across every language. */
+/** The multi-language roster, the same honest coaching across every language. */
 export function Languages() {
   return (
     <Section id={SectionId.Languages} className="relative overflow-hidden bg-surface/40">

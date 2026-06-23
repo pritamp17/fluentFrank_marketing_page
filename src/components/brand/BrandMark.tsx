@@ -8,7 +8,7 @@ interface BrandMarkProps {
 /**
  * The FluentFrank mark: a speech bubble with a check.
  * Bubble fills with the theme-aware `accent` (green in light, gold in dark);
- * the check is knocked out in the page background color — so it matches the
+ * the check is knocked out in the page background color, so it matches the
  * official light/dark logo variants automatically.
  */
 export function BrandMark({ className, title = "FluentFrank" }: BrandMarkProps) {

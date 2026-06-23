@@ -3,6 +3,7 @@ import type {
   BillingInterval,
   CorrectionSeverity,
   FeatureId,
+  MethodFeatureId,
   PlanId,
 } from "@/lib/enums";
 
@@ -40,7 +41,7 @@ export interface HowItWorksStep {
 }
 
 export interface Feature {
-  readonly id: FeatureId;
+  readonly id: FeatureId | MethodFeatureId;
   readonly eyebrow: string;
   readonly title: string;
   readonly description: string;

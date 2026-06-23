@@ -40,7 +40,7 @@ export function About() {
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src={ASSETS.heroImage}
-                alt="Calm green mist — the feeling of speaking without fear"
+                alt="Calm green mist, the feeling of speaking without fear"
                 className="aspect-[4/3] w-full rounded-3xl border border-border object-cover shadow-card"
                 loading="lazy"
               />

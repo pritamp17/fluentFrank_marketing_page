@@ -2,6 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Louize (display serif) is declared in `src/app/louize.css`, imported by the layout. */
+
 /*
  * Theme tokens as "R G B" channel triples.
  * Light (default) lives on :root; dark overrides on .dark (toggled by next-themes).
@@ -18,8 +20,8 @@
     --fg-muted: 74 92 82;
     --fg-subtle: 120 134 127;
 
-    --accent: 22 163 74; /* #16A34A — brand green */
-    --accent-strong: 21 128 61; /* #15803D — AA green-on-white */
+    --accent: 22 163 74; /* #16A34A, brand green */
+    --accent-strong: 21 128 61; /* #15803D, AA green-on-white */
     --accent-fg: 255 255 255;
     --accent-soft: 220 252 231; /* #DCFCE7 */
 
@@ -40,7 +42,7 @@
     --fg-muted: 158 170 162;
     --fg-subtle: 112 124 117;
 
-    --accent: 200 162 76; /* #C8A24C — brand gold */
+    --accent: 200 162 76; /* #C8A24C, brand gold */
     --accent-strong: 214 178 96;
     --accent-fg: 10 12 10;
     --accent-soft: 41 35 19;

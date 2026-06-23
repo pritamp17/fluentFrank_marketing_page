@@ -10,7 +10,9 @@ export function Providers({ children }: { children: ReactNode }) {
     <ThemeProvider
       attribute="class"
       defaultTheme={Theme.Light}
-      enableSystem
+      // Light is the deterministic default on first visit (no OS-driven dark).
+      // The manual toggle still switches and persists light/dark per visitor.
+      enableSystem={false}
       disableTransitionOnChange
     >
       {children}

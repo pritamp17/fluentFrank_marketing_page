@@ -6,7 +6,7 @@ import { ENDORSEMENT } from "@/lib/content";
 
 /**
  * Opinion-leader endorsement, placed high (above user testimonials) per the
- * Kulkov landing rule. PLACEHOLDER quote — swap for a real endorsement.
+ * Kulkov landing rule. PLACEHOLDER quote, swap for a real endorsement.
  */
 export function EndorsementBar() {
   return (

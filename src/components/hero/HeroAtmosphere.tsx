@@ -9,7 +9,7 @@ import { cn } from "@/lib/utils";
 
 /**
  * Each entry is the SAME idea said across the roster's languages. Floating words
- * morph through them — quietly depicting the whole product: one thought, many
+ * morph through them, quietly depicting the whole product: one thought, many
  * tongues. Order roughly tracks the language roster (EN, ES, FR, DE, IT, JA, KO,
  * ZH, PT, HI, AR, RU).
  */
