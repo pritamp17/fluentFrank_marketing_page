@@ -37,6 +37,7 @@ function formatPrice(amount: number): string {
 export function Pricing() {
   const [interval, setInterval] = useState<BillingInterval>(BillingInterval.Yearly);
   const isYearly = interval === BillingInterval.Yearly;
+  const trialDays = PRICING.trialDaysByInterval[interval];
 
   const weeklyRunRate = PRICING.byInterval[BillingInterval.Weekly] * PRICING.weeksPerYear;
   const yearlySaved = Math.round(weeklyRunRate - PRICING.byInterval[BillingInterval.Yearly]);
@@ -84,6 +85,8 @@ export function Pricing() {
           {PLANS.map((plan) => {
             const price = plan.priceByInterval[interval];
             const isFree = plan.id === PlanId.Free;
+            // Paid plan's CTA names the trial length for the selected cadence.
+            const ctaLabel = isFree ? plan.ctaLabel : `Start ${trialDays}-day free trial`;
             return (
               <Reveal key={plan.id}>
                 <div
@@ -115,8 +118,8 @@ export function Pricing() {
                     {isFree
                       ? ""
                       : isYearly
-                        ? `Billed yearly · about ${PRICING.symbol}${(price / 12).toFixed(2)}/mo · just ${PRICING.symbol}${(price / PRICING.weeksPerYear).toFixed(2)}/wk`
-                        : `${PRICING.trialDays}-day free trial · billed weekly`}
+                        ? `${trialDays}-day free trial · about ${PRICING.symbol}${(price / 12).toFixed(2)}/mo, billed yearly`
+                        : `${trialDays}-day free trial · billed weekly`}
                   </p>
                   {!isFree && isYearly ? (
                     <p className="mt-2 inline-flex w-fit items-center gap-1.5 rounded-full bg-accent-soft px-2.5 py-1 text-xs font-semibold text-accent-strong">
@@ -131,7 +134,7 @@ export function Pricing() {
                     size="md"
                     className="mt-5 w-full"
                   >
-                    {plan.ctaLabel}
+                    {ctaLabel}
                   </Button>
 
                   <ul className="mt-6 space-y-2.5 border-t border-border pt-5">
@@ -148,9 +151,9 @@ export function Pricing() {
           })}
         </div>
 
-        {/* Capability comparison */}
+        {/* Capability comparison: overflow-x-auto so the table scrolls on narrow phones */}
         <Reveal>
-          <div className="mx-auto mt-10 max-w-3xl overflow-hidden rounded-2xl border border-border bg-surface">
+          <div className="mx-auto mt-10 max-w-3xl overflow-x-auto rounded-2xl border border-border bg-surface">
             <table className="w-full text-left">
               <thead>
                 <tr className="border-b border-border text-xs uppercase tracking-wide text-fg-subtle">

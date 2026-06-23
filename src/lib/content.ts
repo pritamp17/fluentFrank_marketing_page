@@ -1,4 +1,6 @@
 import {
+  AudioLines,
+  BookA,
   Brain,
   CalendarClock,
   CheckCheck,
@@ -11,11 +13,18 @@ import {
   ShieldCheck,
   Snowflake,
   ThumbsUp,
+  TrendingUp,
   Users,
   Volume2,
 } from "lucide-react";
 
-import { BillingInterval, CorrectionSeverity, FeatureId, PlanId } from "@/lib/enums";
+import {
+  BillingInterval,
+  CorrectionSeverity,
+  FeatureId,
+  MethodFeatureId,
+  PlanId,
+} from "@/lib/enums";
 import { LANGUAGE_COUNT, LANGUAGES } from "@/lib/languages";
 import { ASSETS, PRICING, SITE } from "@/lib/site";
 import type {
@@ -36,14 +45,15 @@ import type {
 
 export const HERO = {
   eyebrow: `Conversational AI coach · ${LANGUAGE_COUNT} languages`,
-  headline: "Finally speak a new language — without freezing.",
+  headline: "Finally speak a new language without freezing.",
   // Lead + tail wrap the hero's animated language cycler (see LanguageCycler).
   headlineLead: "Finally speak ",
-  headlineTail: " — without freezing.",
+  headlineTail: " without freezing.",
   // ≤ 2 sentences (Kulkov rule).
   subhead:
-    "You can read it, but the second you have to speak, your mind goes blank. Frank gets you talking in your first minute — and gently fixes what you'd otherwise keep getting wrong.",
+    "You can read it, but the second you have to speak, your mind goes blank. Frank gets you talking in your first minute, then gently fixes what you'd otherwise keep getting wrong.",
   microProof: "No credit card · Your first correction in under a minute",
+  webFirst: "Works right in your browser · nothing to install",
 } as const;
 
 export const HERO_STATS: readonly Stat[] = [
@@ -58,7 +68,7 @@ export const PROBLEM = {
   eyebrow: "The freeze is real",
   title: "Years of apps. Still can't get a sentence out.",
   closer:
-    "None of this is your fault. You were never given a safe place to be bad at this — until now.",
+    "None of this is your fault. You were never given a safe place to be bad at this. Until now.",
 } as const;
 
 export const PROBLEM_POINTS: readonly ProblemPoint[] = [
@@ -70,7 +80,7 @@ export const PROBLEM_POINTS: readonly ProblemPoint[] = [
   {
     icon: Gamepad2,
     title: "Apps never made you talk",
-    body: "Streaks, matching games, a cute owl — but you've still never actually held a conversation.",
+    body: "Streaks, matching games, a cute owl, but you've still never actually held a conversation.",
   },
   {
     icon: ThumbsUp,
@@ -90,7 +100,7 @@ export const VALUE = {
   eyebrow: "Why FluentFrank",
   title: "Speak from day one. Improve every time you do.",
   subtitle:
-    "Not another chatbot. A coach built around the one thing that makes you fluent — talking, and being corrected with care.",
+    "Not another chatbot. A coach built around the one thing that makes you fluent: talking, and being corrected with care.",
 } as const;
 
 export const VALUE_PILLARS: readonly ValuePillar[] = [
@@ -98,7 +108,7 @@ export const VALUE_PILLARS: readonly ValuePillar[] = [
     kind: "rational",
     label: "The logic",
     title: "Correction that's actually honest",
-    body: "A separate check reads every line before Frank replies — so mistakes get caught instead of flattered.",
+    body: "A separate check reads every line before Frank replies, so mistakes get caught instead of flattered.",
     icon: ShieldCheck,
   },
   {
@@ -140,7 +150,7 @@ export const HOW_STEPS: readonly HowItWorksStep[] = [
   {
     index: 3,
     title: "One honest correction",
-    body: "What you said, the fix, and a one-line why — in English. Calm and clear, never harsh.",
+    body: "What you said, the fix, and a one-line why, in English. Calm and clear, never harsh.",
     icon: CheckCheck,
   },
   {
@@ -157,7 +167,7 @@ export const DEMO = {
   eyebrow: "See it in action",
   title: "This is the whole product, in one card.",
   subtitle:
-    "Watch Frank teach a real phrase, read it aloud, and catch the mistake you didn't know you were making — playing on a loop. Hear any line, or scrub between examples.",
+    "Watch Frank teach a real phrase, read it aloud, and catch the mistake you didn't know you were making, playing on a loop. Hear any line, or scrub between examples.",
   footnote: "No signup. This preview runs entirely in your browser.",
 } as const;
 
@@ -174,7 +184,7 @@ export const DEMO_EXCHANGES: readonly DemoExchange[] = [
       typeLabel: "Nailed it",
       said: "Quiero un café, por favor.",
       fix: "Quiero un café, por favor.",
-      why: "Perfect — natural word order, the polite tag, the accent on café. Exactly how a local would order.",
+      why: "Perfect: natural word order, the polite tag, the accent on café. Exactly how a local would order.",
     },
   },
   {
@@ -183,7 +193,7 @@ export const DEMO_EXCHANGES: readonly DemoExchange[] = [
     spanish: "¿Dónde está la estación de tren?",
     gloss: "Where is the train station?",
     audioSrc: ASSETS.audio.station,
-    memoryNote: "ser vs estar with location — I'll bring this back next time.",
+    memoryNote: "ser vs estar with location. I'll bring this back next time.",
     correction: {
       severity: CorrectionSeverity.Polish,
       typeLabel: "ser vs estar",
@@ -198,13 +208,13 @@ export const DEMO_EXCHANGES: readonly DemoExchange[] = [
     spanish: "Me gustaría reservar una mesa para dos.",
     gloss: "I would like to reserve a table for two.",
     audioSrc: ASSETS.audio.table,
-    memoryNote: "por vs para — noted on your mistake list.",
+    memoryNote: "por vs para, noted on your mistake list.",
     correction: {
       severity: CorrectionSeverity.Polish,
       typeLabel: "por vs para",
       said: "…reservar una mesa por dos.",
       fix: "…reservar una mesa para dos.",
-      why: "“Para” marks purpose or recipient — a table for two people. “Por” would suggest an exchange or a reason.",
+      why: "“Para” marks purpose or recipient, a table for two people. “Por” would suggest an exchange or a reason.",
     },
   },
 ];
@@ -222,11 +232,11 @@ export const FEATURES: readonly Feature[] = [
     eyebrow: "Honest by architecture",
     title: "It corrects you. Most AIs won't.",
     description:
-      "A dedicated correction check runs in parallel with every reply — it can't be sweet-talked into saying “perfect” when it isn't.",
+      "A dedicated correction check runs in parallel with every reply, so it can't be sweet-talked into saying “perfect” when it isn't.",
     bullets: [
       "What you said → the fix → the why, every single turn",
       "Explained in your own language, so the lesson actually lands",
-      "Calm tone — red is for system errors, never for you",
+      "Calm tone: red is for system errors, never for you",
     ],
     icon: CheckCheck,
   },
@@ -258,13 +268,64 @@ export const FEATURES: readonly Feature[] = [
   },
 ];
 
+/* -------------------------------------------------------------- Method -- */
+
+export const METHOD_SECTION = {
+  eyebrow: "More than a chat",
+  title: "A method that compounds, not a chatbot that forgets.",
+  subtitle:
+    "Frank is built on the parts most AI tutors skip: the writing system, the exact sound, and a memory of every slip. That's what turns practice into real progress.",
+} as const;
+
+export const METHOD_FEATURES: readonly Feature[] = [
+  {
+    id: MethodFeatureId.Foundations,
+    eyebrow: "Start from zero",
+    title: "Even a brand-new alphabet.",
+    description:
+      "Learning Japanese, Korean, or Russian from scratch? Frank starts you at the letters and sounds, then builds to your first real words. No prior knowledge assumed.",
+    bullets: [
+      "Kana, Hangul, Cyrillic, Devanagari, Arabic, and pinyin",
+      "Hear every character, then say it back",
+      "A1 vocabulary that gets you to a full sentence",
+    ],
+    icon: BookA,
+  },
+  {
+    id: MethodFeatureId.Pronunciation,
+    eyebrow: "Sound like you mean it",
+    title: "It names the exact sound to fix.",
+    description:
+      "Most apps hand you a score and move on. Frank tells you which sound slipped and how to shape it, then lets you hear the difference.",
+    bullets: [
+      "Per-sound feedback, not just pass or fail",
+      "Hear Frank, then hear yourself, back to back",
+      "Drill the tricky one until it clicks",
+    ],
+    icon: AudioLines,
+  },
+  {
+    id: MethodFeatureId.SpacedReview,
+    eyebrow: "Progress you can measure",
+    title: "Your mistakes come back on schedule.",
+    description:
+      "Every slip becomes a personal review deck, resurfaced right before you'd forget. Your level climbs the CEFR scale as the corrections stack up.",
+    bullets: [
+      "Spaced review built from your own errors",
+      "Climb from A1 toward fluency, step by step",
+      "A daily plan that keeps the habit alive",
+    ],
+    icon: TrendingUp,
+  },
+];
+
 /* ----------------------------------------------------------- Languages -- */
 
 export const LANGUAGES_SECTION = {
   eyebrow: `${LANGUAGE_COUNT} languages, one honest coach`,
   title: "Speak the language that opens your world.",
   subtitle:
-    "The world's most-studied languages and the ones that move careers — each taught the FluentFrank way: you start in your own language, and Frank coaches you into theirs.",
+    "The world's most-studied languages and the ones that move careers, each taught the FluentFrank way: you start in your own language, and Frank coaches you into theirs.",
   footnote: "Same honest correction, mistake memory, and say-it-in-your-language coaching in every one.",
 } as const;
 
@@ -293,7 +354,7 @@ export const ABOUT_CHIPS: readonly AboutChip[] = [
 /* ------------------------------------------------------------ Social proof -- */
 
 /**
- * PLACEHOLDER testimonials & endorsement — replace with real, attributable
+ * PLACEHOLDER testimonials and endorsement: replace with real, attributable
  * quotes before launch. Names are illustrative personas, not real customers.
  */
 export const PROOF = {
@@ -318,7 +379,7 @@ export const TESTIMONIALS: readonly Testimonial[] = [
   },
   {
     quote:
-      "It caught me mixing up ser and estar for weeks — and remembered. ChatGPT never once corrected me.",
+      "It caught me mixing up ser and estar for weeks, and remembered. ChatGPT never once corrected me.",
     name: "Sam",
     role: "Self-taught",
     initials: "S",
@@ -327,7 +388,7 @@ export const TESTIMONIALS: readonly Testimonial[] = [
 
 export const ENDORSEMENT: Endorsement = {
   quote:
-    "Most AI tutors are too polite to teach. FluentFrank's correction-first design — and explaining the fix in the learner's own language — is exactly right.",
+    "Most AI tutors are too polite to teach. FluentFrank's correction-first design, and explaining the fix in the learner's own language, is exactly right.",
   name: "A. Reyes",
   title: "Language teacher, CEFR examiner",
   initials: "AR",
@@ -338,7 +399,7 @@ export const ENDORSEMENT: Endorsement = {
 export const PRICING_SECTION = {
   eyebrow: "Pricing",
   title: "Priced like an app, not a tutor.",
-  subtitle: `Start free. Go weekly to test the waters — or save ${PRICING.annualSavingsPct}% with yearly once speaking every day becomes the habit.`,
+  subtitle: `Start free. Go weekly to test the waters, or save ${PRICING.annualSavingsPct}% with yearly once speaking every day becomes the habit.`,
 } as const;
 
 export const PLANS: readonly Plan[] = [
@@ -369,7 +430,7 @@ export const PLANS: readonly Plan[] = [
       [BillingInterval.Yearly]: PRICING.byInterval[BillingInterval.Yearly],
     },
     featured: true,
-    ctaLabel: `Start ${PRICING.trialDays}-day free trial`,
+    ctaLabel: "Start free trial",
     perks: [
       "Everything in Free",
       "Unlimited voice conversations",
@@ -391,7 +452,7 @@ export const PLAN_CAPABILITIES: readonly PlanCapability[] = [
 ];
 
 export const PRICING_NOTE =
-  "Not ready to commit? Dismiss the trial and you keep a taste of Pro memory for 3 sessions — no card required.";
+  "Not ready to commit? Dismiss the trial and you keep a taste of Pro memory for 3 sessions, no card required.";
 
 /* ------------------------------------------------------------------ FAQ -- */
 
@@ -404,12 +465,12 @@ export const FAQ_ITEMS: readonly FaqItem[] = [
   {
     question: "Is this just another Duolingo?",
     answer:
-      "No. Duolingo gamifies tapping the right tiles. Frank gets you speaking out loud and corrects you the way a patient tutor would — that's the whole point.",
+      "No. Duolingo gamifies tapping the right tiles. Frank gets you speaking out loud and corrects you the way a patient tutor would. That's the whole point.",
   },
   {
     question: "Will it embarrass me when I get things wrong?",
     answer:
-      "Never. Frank leads with what you nailed, explains the fix in your own language, and reserves red for genuine system errors — not for you. Being corrected should feel like help, not a grade.",
+      "Never. Frank leads with what you nailed, explains the fix in your own language, and reserves red for genuine system errors, not for you. Being corrected should feel like help, not a grade.",
   },
   {
     question: "I'm a total beginner. Will I be lost?",
@@ -419,16 +480,16 @@ export const FAQ_ITEMS: readonly FaqItem[] = [
   {
     question: "Isn't ChatGPT free?",
     answer:
-      "It is — and it'll happily agree with broken grammar. Frank runs correction as a separate check that can't be talked out of teaching you, and it remembers your mistakes across sessions.",
+      "It is, and it'll happily agree with broken grammar. Frank runs correction as a separate check that can't be talked out of teaching you, and it remembers your mistakes across sessions.",
   },
   {
     question: "Which languages can I learn?",
-    answer: `All ${LANGUAGE_COUNT}, available today: ${LANGUAGES.map((language) => language.name).join(", ")}. Frank starts you in your own language and coaches you into any of them — and we add more over time.`,
+    answer: `All ${LANGUAGE_COUNT}, available today: ${LANGUAGES.map((language) => language.name).join(", ")}. Frank starts you in your own language and coaches you into any of them, and we add more over time.`,
   },
   {
     question: "What if I want to practise more than my plan includes?",
     answer:
-      "You can top up anytime with tokens — each token is a block of extra speaking minutes. Grab a pack whenever you want more conversation: no plan change, no commitment.",
+      "You can top up anytime with tokens, each one a block of extra speaking minutes. Grab a pack whenever you want more conversation: no plan change, no commitment.",
   },
   {
     question: "Do I have to talk out loud?",

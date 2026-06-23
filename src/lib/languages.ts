@@ -16,7 +16,7 @@ export interface LanguageInfo {
   readonly greeting: string;
   /** One-line reason it's on the roster (shown under the chip). */
   readonly note: string;
-  /** Right-to-left script (Arabic) — flips text alignment in the UI. */
+  /** Right-to-left script (Arabic), flips text alignment in the UI. */
   readonly rtl?: boolean;
   /** The one language that's live in the app today. */
   readonly flagship?: boolean;
@@ -41,11 +41,11 @@ export const LANGUAGES: readonly LanguageInfo[] = [
   { id: Language.Russian, name: "Russian", nativeName: "Русский", greeting: "Привет", note: "Eurasia & STEM" },
 ];
 
-/** Total supported languages — used in copy so the number stays in sync. */
+/** Total supported languages, used in copy so the number stays in sync. */
 export const LANGUAGE_COUNT: number = LANGUAGES.length;
 
 /**
- * Words for the hero's animated cycler ("Finally speak ___ — without freezing").
+ * Words for the hero's animated cycler ("Finally speak ___, without freezing").
  * Spanish is first so the static / reduced-motion / SSR state reads naturally and
  * preserves the page's core Spanish keyword.
  */

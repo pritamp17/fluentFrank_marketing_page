@@ -49,7 +49,7 @@ const config: Config = {
         ring: withAlpha("--ring"),
       },
       fontFamily: {
-        display: ['"Playfair Display"', "Georgia", "Cambria", "serif"],
+        display: ['"Louize"', "Georgia", "Cambria", "serif"],
         sans: ["Inter", "system-ui", "-apple-system", "Segoe UI", "sans-serif"],
       },
       borderRadius: {

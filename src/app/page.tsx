@@ -7,6 +7,7 @@ import { FinalCta } from "@/components/sections/FinalCta";
 import { Hero } from "@/components/sections/Hero";
 import { HowItWorks } from "@/components/sections/HowItWorks";
 import { Languages } from "@/components/sections/Languages";
+import { Method } from "@/components/sections/Method";
 import { Pricing } from "@/components/sections/Pricing";
 import { Problem } from "@/components/sections/Problem";
 import { Proof } from "@/components/sections/Proof";
@@ -22,6 +23,7 @@ export default function HomePage() {
       <HowItWorks />
       <DemoSection />
       <Features />
+      <Method />
       <Languages />
       <About />
       <Proof />

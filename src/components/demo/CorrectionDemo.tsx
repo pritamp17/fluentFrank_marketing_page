@@ -21,7 +21,7 @@ const PHASE_MS: Readonly<Record<DemoPhase, number>> = {
 };
 
 /**
- * A self-playing showcase of the product's "aha" — it scripts itself through
+ * A self-playing showcase of the product's "aha", it scripts itself through
  * the real exchanges (listening → honest check → reveal + correction) and loops.
  * No fake input box: nothing here pretends to be a wired-up chatbot. Visitors
  * can still hear the audio, scrub examples via the dots, or pause.
@@ -173,7 +173,7 @@ export function CorrectionDemo({ className }: { readonly className?: string }) {
         </div>
       </div>
 
-      {/* Playback controls — replaces the old (unwired) input dock. */}
+      {/* Playback controls, replaces the old (unwired) input dock. */}
       <div className="flex items-center justify-between gap-3 border-t border-border bg-surface/80 px-4 py-3">
         <div className="flex items-center gap-1.5">
           {DEMO_EXCHANGES.map((exchange, i) => (

@@ -52,7 +52,8 @@ remembers what they keep getting wrong.
 | 4 | **How it works** | 4 beats: say-it → hear → honest correction → remember |
 | 5 | **Try it (live demo)** | Interactive correction-card demo |
 | 6 | **Features** | 3 benefit-led pillars |
-| — | **Languages** | The 12-language roster — same honest coaching in each |
+| — | **Method** | The depth that compounds: from-zero alphabet, pronunciation that names the sound, spaced review + CEFR |
+| — | **Languages** | The 12-language roster, same honest coaching in each |
 | 7 | **About** | "Why we're not scammers" + credibility chips |
 | 8 | **Social proof** | User testimonials |
 | 9 | **Pricing** | Free vs Pro, one plan highlighted |
@@ -65,8 +66,8 @@ remembers what they keep getting wrong.
 - **Tokens as CSS variables** (`src/app/globals.css`: `:root` = light, `.dark` = dark), consumed by `tailwind.config.ts` as `rgb(var(--token) / <alpha-value>)`. Same classes, two themes, zero per-component edits.
 - **Theme-aware accent:** green `#16A34A` in light, gold `#C8A24C` in dark — mirroring the two brand marks. `BrandMark` = speech-bubble + check (bubble fill = accent, check stroke = bg → auto-matches each theme).
 - Supporting tokens: `sage` (positive), `amber` (correction emphasis, never alarm), `danger` (system errors only).
-- **Type:** Playfair Display (display/serif) + Inter (body), loaded via a runtime `<link>` (see Decisions §13).
-- **Theme:** light default; light / dark / system via `next-themes` (no flash).
+- **Type:** **Louize** (display/serif, matches the FluentFrank app), **self-hosted and inlined** as a woff2 data URI in `src/app/louize.css` + Inter (body, runtime `<link>`). All headings + display surfaces use Louize via the `display` token (see Decisions §13).
+- **Theme:** **light by default on first visit** (`enableSystem={false}` so the OS theme never forces dark); a manual light / dark toggle still switches and persists via `next-themes` (no flash).
 - **Responsive** to 320px; touch targets ≥ 44px. **Accessibility:** skip link, ARIA, keyboard nav, `prefers-reduced-motion` honored everywhere.
 
 ## 7. Tech Stack
@@ -87,14 +88,15 @@ src/
     layout/       Navbar, Footer
     motion/       Reveal, AmbientVideo
     sections/     Hero, EndorsementBar, Problem, ValueProp, HowItWorks, DemoSection,
-                  Features, About, Proof, Pricing, Faq, FinalCta
+                  Features, FeatureGrid (shared), Method, Languages, About, Proof,
+                  Pricing, Faq, FinalCta
     theme/        ThemeToggle
     ui/           Button, Card, Container, Eyebrow, IconBadge, Section, SectionHeading
   lib/            site.ts, content.ts, enums.ts, types.ts, utils.ts
   doc/            prd.md (this file)
 ```
 
-- **Copy & config are centralized:** all strings in `content.ts`, brand/links/pricing/assets in `site.ts`, magic-string-free via `enums.ts` (`Theme`, `SectionId`, `BillingInterval`, `Language`, `PlanId`, `FeatureId`, `CorrectionSeverity`, `DemoPhase`).
+- **Copy & config are centralized:** all strings in `content.ts`, brand/links/pricing/assets in `site.ts`, magic-string-free via `enums.ts` (`Theme`, `SectionId`, `BillingInterval`, `Language`, `PlanId`, `FeatureId`, `MethodFeatureId`, `CorrectionSeverity`, `DemoPhase`). The `Feature` type is shared by the Features pillars and the Method differentiators (`id: FeatureId | MethodFeatureId`), rendered through one `FeatureGrid`.
 
 ## 9. Self-Playing Demo (`CorrectionDemo.tsx`)
 
@@ -132,13 +134,15 @@ Generated in-session and served from durable public URLs (referenced via `ASSETS
 ## 12. Pricing (mirrors the product)
 
 - **Free:** daily voice practice, unlimited text, honest corrections, all 12 languages, core scenarios.
-- **Pro:** **$3.99/week** or **$80/year** (~61% off the weekly run-rate, ≈$1.54/wk effective), 7-day free trial, unlimited voice, mistake memory, all scenarios + daily plan, pronunciation flags.
-- **Token top-ups:** extra speaking minutes can be bought anytime — surfaced in the FAQ, not the pricing cards (keeps the plan choice simple).
-- **Dodo Payments** (Merchant of Record) — secure checkout, cancel anytime. Reverse-trial note (keep a taste of Pro memory for 3 sessions if the trial is dismissed).
+- **Pro:** **$3.99/week (3-day free trial)** or **$79.99/year (7-day free trial)** (~61% off the weekly run-rate, ≈$1.54/wk effective), unlimited voice, mistake memory, all scenarios + daily plan, pronunciation flags. Trial length is per cadence (`PRICING.trialDaysByInterval`); each plan card and the Pro CTA show the correct trial for the selected interval.
+- **Token top-ups:** extra speaking minutes can be bought anytime, surfaced in the FAQ, not the pricing cards (keeps the plan choice simple).
+- **Dodo Payments** (Merchant of Record), secure checkout, cancel anytime. Reverse-trial note (keep a taste of Pro memory for 3 sessions if the trial is dismissed).
 
 ## 13. Key Decisions & Tradeoffs
 
-- **Fonts via runtime `<link>`, not `next/font`** — the build sandbox proxy blocks `next/font`'s build-time fetch; a runtime link keeps the build offline-friendly and still works on Vercel.
+- **Louize is self-hosted and inlined** as a woff2 data URI in `src/app/louize.css` (imported by the layout) so the brand serif matches the app, ships inside the CSS with no extra request or swap flash, and commits as text (the deploy push path carries no binary blobs). Inter (body) still loads via a runtime `<link>` (not `next/font`), since the build sandbox proxy blocks `next/font`'s build-time fetch.
+- **A single Louize optical master covers the heading weight range** (`font-weight: 400 700` on the `@font-face`) so the browser renders true Louize shapes at every weight rather than faux-bolding a single 400 master.
+- **No em-dashes in any rendered copy** — em-dashes read as "AI slop"; all visible strings use commas / colons / periods (the `·` middot separators are kept as an intentional house style).
 - **Media on public URLs, not committed binaries** — the push path (GitHub MCP) is text-only and there's no local git credential in the build environment, so binaries are hosted and referenced rather than committed. Centralized in `ASSETS` for easy self-hosting.
 - **Light theme leads** — visual continuity between the page and the app (which opens light) is a trust/conversion lever.
 - **Animation is purposeful** — reconciles Kulkov's "delete animations" with the "make it mesmerizing" goal: motion that *demonstrates/evokes the product*, never decorative noise, always reduced-motion safe.
@@ -169,6 +173,7 @@ Deploy: import the repo into Vercel (preset **Next.js**, no env vars).
 | #2 | `feat/hero-animation` | Hero "language field" animation (aurora, voice ribbons, EN→ES morphing words, sparkles, gradient sheen) |
 | #3 | `docs/session-prd` | This PRD / build log |
 | #4 | `feat/multi-language-premium-hero-pricing` | Multi-language: 12-language roster (`lib/languages.ts`), new **Languages** section, animated headline **LanguageCycler**; **vibrating** hero voice-waves + words morphing across all 12; **self-playing demo** (removed the fake input box); **Weekly $3.99 / Yearly $80** pricing with a prominent savings highlight + a token-top-up FAQ; premium polish; responsive |
+| #5 | `feat/light-default-louize-premium-hero-pricing` | **Light theme by default** (`enableSystem={false}`, toggle kept); **self-hosted Louize** as the display font for all headings (replaces Playfair); **pricing** → Yearly **$79.99** + **per-cadence trials** (3-day weekly / 7-day yearly) shown per card and in the Pro CTA; **hero cycler line-height fix** (no more "Portuguese" merging) + em-dash removed from the headline; **all em-dashes stripped** from rendered copy; **premium hero** pass (Louize scale, refined tracking, web-first trust line); new **Method** section (from-zero alphabet · pronunciation that names the sound · spaced review + CEFR) via a shared `FeatureGrid`; tablet/mobile responsiveness pass. Local `npm install`/`build` blocked by a registry 502 outage through the sandbox proxy → Vercel preview build on the PR is the authoritative compile check |
 
 ## 17. Backlog / Future
 

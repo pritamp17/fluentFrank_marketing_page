@@ -8,7 +8,7 @@ import { SectionHeading } from "@/components/ui/SectionHeading";
 import { PROOF, TESTIMONIALS } from "@/lib/content";
 import { SectionId } from "@/lib/enums";
 
-/** User testimonials. PLACEHOLDER quotes — replace with real ones before launch. */
+/** User testimonials. PLACEHOLDER quotes, replace with real ones before launch. */
 export function Proof() {
   return (
     <Section id={SectionId.Proof}>

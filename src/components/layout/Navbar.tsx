@@ -37,12 +37,13 @@ export function Navbar() {
             <Wordmark />
           </a>
 
-          <div className="hidden items-center gap-1 md:flex">
+          {/* 7 links: switch from gap-1 px-3 to gap-0 px-2 at md so they all fit before lg. */}
+          <div className="hidden items-center gap-0 md:flex lg:gap-1">
             {NAV_LINKS.map((link) => (
               <a
                 key={link.href}
                 href={link.href}
-                className="rounded-full px-3 py-2 text-sm text-fg-muted transition-colors hover:text-fg"
+                className="rounded-full px-2 py-2 text-[0.8rem] text-fg-muted transition-colors hover:text-fg lg:px-3 lg:text-sm"
               >
                 {link.label}
               </a>

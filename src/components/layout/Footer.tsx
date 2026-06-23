@@ -68,7 +68,7 @@ export function Footer() {
 
         <div className="mt-12 flex flex-col gap-2 border-t border-border pt-6 text-xs text-fg-subtle sm:flex-row sm:items-center sm:justify-between">
           <p>
-            © {year} {SITE.name} — a {SITE.company} product.
+            © {year} {SITE.name}, a {SITE.company} product.
           </p>
           <p>{LANGUAGE_COUNT} languages · say it in yours, speak in theirs.</p>
         </div>

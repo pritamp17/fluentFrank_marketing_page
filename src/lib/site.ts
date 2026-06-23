@@ -7,13 +7,13 @@ export const SITE = {
   persona: "Frank",
   tagline: "Say it in your language. We'll teach you to say it in theirs.",
   description:
-    "FluentFrank is the AI coach that actually gets you speaking a new language — Spanish, French, German and 9 more. It corrects you honestly, explains the fix in your own language, and remembers what you keep getting wrong.",
+    "FluentFrank is the AI coach that actually gets you speaking a new language: Spanish, French, German, and 9 more. It corrects you honestly, explains the fix in your own language, and remembers what you keep getting wrong.",
   url: "https://fluentfrank.com",
   appUrl: "https://useapp.fluentfrank.com",
   email: "hello@fluentfrank.com",
   company: "Tournahub Solutions Private Limited",
   pair: { from: "English", to: "Spanish" },
-  /** Optional social handles — left empty so nothing renders until set. */
+  /** Optional social handles, left empty so nothing renders until set. */
   social: {
     x: "",
   },
@@ -33,26 +33,32 @@ export const NAV_LINKS: readonly NavLink[] = [
   { label: "How it works", href: `#${SectionId.HowItWorks}` },
   { label: "Demo", href: `#${SectionId.Demo}` },
   { label: "Features", href: `#${SectionId.Features}` },
+  { label: "The method", href: `#${SectionId.Method}` },
   { label: "Languages", href: `#${SectionId.Languages}` },
   { label: "Pricing", href: `#${SectionId.Pricing}` },
   { label: "FAQ", href: `#${SectionId.Faq}` },
 ];
 
 /**
- * Pricing — mirrors the product (Dodo Payments, Merchant of Record).
+ * Pricing, mirrors the product (Dodo Payments, Merchant of Record).
  * Two paid cadences: a low-friction weekly and a discounted yearly.
- * Yearly ($80) vs the weekly run-rate ($3.99 × 52 = $207.48) ≈ 61% off
+ * Yearly ($79.99) vs the weekly run-rate ($3.99 x 52 = $207.48) is about 61% off
  * (~$1.54/wk effective). Free stays free. Extra usage = token top-ups (FAQ).
+ * Trials differ by cadence: a 3-day trial on weekly, a 7-day trial on yearly.
  */
 export const PRICING = {
   currency: "USD",
   symbol: "$",
   byInterval: {
     [BillingInterval.Weekly]: 3.99,
-    [BillingInterval.Yearly]: 80,
+    [BillingInterval.Yearly]: 79.99,
+  },
+  /** Free-trial length per cadence (days). */
+  trialDaysByInterval: {
+    [BillingInterval.Weekly]: 3,
+    [BillingInterval.Yearly]: 7,
   },
   weeksPerYear: 52,
-  trialDays: 7,
   reverseTrialSessions: 3,
   /** % saved by paying yearly instead of weekly for a year. */
   annualSavingsPct: 61,
@@ -60,7 +66,7 @@ export const PRICING = {
 
 /**
  * Social-proof figures shown on the page.
- * PLACEHOLDER VALUES — replace with real, verifiable numbers before launch.
+ * PLACEHOLDER VALUES, replace with real, verifiable numbers before launch.
  */
 export const SOCIAL_PROOF = {
   learners: "12,000+",

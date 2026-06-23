@@ -6,7 +6,7 @@ import { DEMO_EXCHANGES } from "@/lib/content";
 import { cn } from "@/lib/utils";
 
 /**
- * Static, server-rendered snapshot of the product for the hero — shows a real
+ * Static, server-rendered snapshot of the product for the hero, shows a real
  * exchange + correction card so the value is legible instantly (the live,
  * interactive version lives in the "Try it" section).
  */

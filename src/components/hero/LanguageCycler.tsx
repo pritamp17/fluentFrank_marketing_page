@@ -15,7 +15,7 @@ interface LanguageCyclerProps {
 
 /**
  * Rotates the hero's target language through the animated gradient sheen
- * ("Finally speak ___ — without freezing").
+ * ("Finally speak ___, without freezing").
  *
  * - Zero layout shift: an invisible stack of every word reserves the widest
  *   box, so the surrounding headline never reflows as the word changes width.
@@ -40,7 +40,7 @@ export function LanguageCycler({ words, intervalMs = 2200, className }: Language
 
   return (
     <span className={cn("relative inline-grid align-baseline", className)}>
-      {/* Invisible sizer stack — reserves the widest word's box (no reflow). */}
+      {/* Invisible sizer stack, reserves the widest word's box (no reflow). */}
       {safeWords.map((word, i) => (
         <span
           key={`sizer-${word}-${i}`}
@@ -61,9 +61,9 @@ export function LanguageCycler({ words, intervalMs = 2200, className }: Language
             <motion.span
               key={active}
               className="text-gradient-animated inline-block"
-              initial={{ y: "0.4em", opacity: 0, filter: "blur(8px)" }}
+              initial={{ y: "0.3em", opacity: 0, filter: "blur(8px)" }}
               animate={{ y: "0em", opacity: 1, filter: "blur(0px)" }}
-              exit={{ y: "-0.4em", opacity: 0, filter: "blur(8px)" }}
+              exit={{ y: "-0.3em", opacity: 0, filter: "blur(8px)" }}
               transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
             >
               {active}
