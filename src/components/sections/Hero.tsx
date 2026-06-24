@@ -1,7 +1,7 @@
 import { ArrowRight, Globe, Star } from "lucide-react";
 
-import { HeroPreview } from "@/components/demo/HeroPreview";
-import { HeroAtmosphere } from "@/components/hero/HeroAtmosphere";
+import { AppDemoCompact } from "@/components/appdemo/AppDemoCompact";
+import { AmbientBackdrop } from "@/components/hero/AmbientBackdrop";
 import { LanguageCycler } from "@/components/hero/LanguageCycler";
 import { Reveal } from "@/components/motion/Reveal";
 import { Button } from "@/components/ui/Button";
@@ -15,7 +15,7 @@ import { PRIMARY_CTA, SECONDARY_CTA, SOCIAL_PROOF } from "@/lib/site";
 export function Hero() {
   return (
     <section id={SectionId.Hero} className="relative isolate overflow-hidden pb-16 pt-24 sm:pt-32 lg:pb-24 lg:pt-40">
-      <HeroAtmosphere />
+      <AmbientBackdrop />
 
       <Container className="relative z-10">
         <div className="grid items-center gap-12 lg:grid-cols-[1.05fr_0.95fr] lg:gap-8">
@@ -34,7 +34,8 @@ export function Hero() {
             </Reveal>
 
             <Reveal delay={0.1}>
-              <p className="mt-4 max-w-lg text-pretty text-[0.95rem] leading-relaxed text-fg-muted sm:mt-5 sm:text-lg">
+              {/* fg/80 (not fg-muted) so the pitch stays legible over the warm ambient backdrop. */}
+              <p className="mt-4 max-w-lg text-pretty text-[0.95rem] leading-relaxed text-fg/80 sm:mt-5 sm:text-lg">
                 {HERO.subhead}
               </p>
             </Reveal>
@@ -52,14 +53,14 @@ export function Hero() {
 
             <Reveal delay={0.2}>
               {/* Web-first positioning, a real edge over the mobile-only rivals. */}
-              <p className="mt-4 inline-flex items-center gap-2 text-xs font-medium text-fg-subtle">
+              <p className="mt-4 inline-flex items-center gap-2 text-xs font-medium text-fg/70">
                 <Globe className="h-3.5 w-3.5 text-accent" aria-hidden />
                 {HERO.webFirst}
               </p>
             </Reveal>
 
             <Reveal delay={0.25}>
-              <div className="mt-5 flex items-center gap-3 text-sm text-fg-muted">
+              <div className="mt-5 flex items-center gap-3 text-sm text-fg/80">
                 {/* PLACEHOLDER rating, replace SOCIAL_PROOF in site.ts with real numbers. */}
                 <span className="flex" aria-hidden>
                   {[0, 1, 2, 3, 4].map((i) => (
@@ -79,7 +80,7 @@ export function Hero() {
                 {HERO_STATS.map((stat) => (
                   <div key={stat.label}>
                     <dt className="font-display text-xl font-semibold text-fg">{stat.value}</dt>
-                    <dd className="mt-1 text-xs leading-snug text-fg-subtle">{stat.label}</dd>
+                    <dd className="mt-1 text-xs leading-snug text-fg/70">{stat.label}</dd>
                   </div>
                 ))}
               </dl>
@@ -87,10 +88,10 @@ export function Hero() {
           </div>
 
           <Reveal delay={0.15} className="flex justify-center lg:justify-end">
-            <div className="relative w-full max-w-full sm:max-w-md">
+            <div className="relative w-full max-w-full sm:max-w-md lg:max-w-lg">
               <div className="pointer-events-none absolute -inset-6 -z-10 bg-mist blur-2xl" aria-hidden />
-              <HeroPreview />
-              <p className="mt-3 text-center text-xs text-fg-subtle">{HERO.microProof}</p>
+              <AppDemoCompact />
+              <p className="mt-3 text-center text-xs font-medium text-fg/90">{HERO.microProof}</p>
             </div>
           </Reveal>
         </div>

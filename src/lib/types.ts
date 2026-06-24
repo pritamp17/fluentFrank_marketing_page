@@ -1,8 +1,9 @@
 import type { LucideIcon } from "lucide-react";
 import type {
   BillingInterval,
-  CorrectionSeverity,
+  DemoCardKind,
   FeatureId,
+  Language,
   MethodFeatureId,
   PlanId,
 } from "@/lib/enums";
@@ -87,24 +88,61 @@ export interface Plan {
   readonly perks: readonly string[];
 }
 
-/**
- * A scripted exchange for the interactive demo: the learner's English, the
- * Spanish Frank teaches, a plain gloss, the warm correction, and a TTS clip.
- */
-export interface DemoExchange {
-  readonly id: string;
-  readonly english: string;
-  readonly spanish: string;
-  readonly gloss: string;
-  readonly correction: DemoCorrection;
-  readonly audioSrc: string;
-  readonly memoryNote: string;
+/* ----------------------------------------------- App-faithful demo (multi-lang) -- */
+
+/** A correction card in the app-faithful demo (mirrors the app's CorrectionCard). */
+export interface AppDemoCorrection {
+  readonly kind: DemoCardKind;
+  /** Grammar point label, e.g. "ser vs estar" (omitted for a clean nail). */
+  readonly typeLabel?: string;
+  /** Calm severity chip, e.g. "Polish" / "Nailed it". */
+  readonly severityLabel: string;
+  /** What the learner nailed (leads the card when present). */
+  readonly nailed?: string;
+  /** The learner's original (struck through). Omitted when there's nothing to fix. */
+  readonly said?: string;
+  /** The fix (the highlighted, heaviest element). */
+  readonly fix: string;
+  /** The one-line "why", framed in the learner's own language (L1). */
+  readonly why?: string;
 }
 
-export interface DemoCorrection {
-  readonly severity: CorrectionSeverity;
-  readonly typeLabel: string;
-  readonly said: string;
-  readonly fix: string;
-  readonly why: string;
+/**
+ * One scripted beat of the app-faithful demo. Language-agnostic so the demo can
+ * cycle Spanish → French → Hindi: each beat carries its own locale + labels, the
+ * learner's L1 request, the L2 phrase Frank teaches, the correction, and the
+ * say-it-back target. `audioSrc` is set only where a real clip exists (Spanish);
+ * other locales fall back to the browser's speech synthesis.
+ */
+export interface AppDemoBeat {
+  readonly id: string;
+  readonly language: Language;
+  /** BCP-47 tag for speech synthesis, e.g. "es-ES". */
+  readonly locale: string;
+  /** Target-language display name, e.g. "Spanish". */
+  readonly l2Label: string;
+  /** Native-language display name (the explanation language), e.g. "English". */
+  readonly l1Label: string;
+  /** Emoji flag for the language pill + caption. */
+  readonly flag: string;
+  /** L1 flag for the "Stuck? Say it in {L1}" hatch. */
+  readonly l1Flag: string;
+  /** What the learner wants to say, in their own language (the learner bubble). */
+  readonly learnerText: string;
+  /** The natural phrase Frank teaches, in the target language (the coach bubble). */
+  readonly coachText: string;
+  /** Plain L1 gloss of the coach phrase. */
+  readonly gloss: string;
+  /** Real TTS clip, when one exists for this locale. */
+  readonly audioSrc?: string;
+  /** The mistake-memory line ("I'll bring this back next time"). */
+  readonly memoryNote: string;
+  /** The "Now you say it in {L2}" target. */
+  readonly sayItBack: AppDemoSayItBack;
+  readonly correction: AppDemoCorrection;
+}
+
+export interface AppDemoSayItBack {
+  readonly phrase: string;
+  readonly gloss?: string;
 }
