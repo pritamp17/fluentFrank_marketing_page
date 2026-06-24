@@ -95,4 +95,14 @@ export const ASSETS = {
     table:
       "https://pub.hyperagent.com/api/published/pbf01KVJWXW9E_YWDHZQNC2838M8S2/5192d154-d41d-47d3-a839-0ab3cb31617b.wav",
   },
+  /**
+   * App ambient backdrop, copied from the product (`/public/onboarding/`) so the
+   * marketing hero reuses the exact warm-paper canvas + drifting-waves motion the
+   * onboarding uses. Self-hosted (committed in `public/`).
+   */
+  ambient: {
+    light: "/onboarding/ambient-light.webp",
+    dark: "/onboarding/ambient-dark.webp",
+    loop: "/onboarding/ambient-loop.webm",
+  },
 } as const;

@@ -11,10 +11,13 @@
  */
 @layer base {
   :root {
-    --bg: 255 255 255;
-    --surface: 248 250 249;
-    --surface-2: 240 245 242;
-    --border: 224 232 227;
+    /* Faint warm "paper" neutrals (was cool pure-white) so the whole light page
+     * echoes the hero's warm ambient instead of reading as stark white. The
+     * bg > surface > surface-2 lightness hierarchy is preserved. */
+    --bg: 252 249 243;
+    --surface: 249 245 238;
+    --surface-2: 243 238 229;
+    --border: 230 223 211;
 
     --fg: 14 27 18;
     --fg-muted: 74 92 82;
@@ -30,6 +33,81 @@
     --amber-soft: 254 243 199;
     --danger: 220 38 38; /* system errors ONLY */
     --ring: 22 163 74;
+
+    /* ───────────────────────────────────────────────────────────────────────
+     * App-faithful ramps (additive). Copied VERBATIM from the FluentFrank app
+     * (`fluent_frank/src/app/globals.css`) so the new app-demo components and
+     * onboarding ambient render identical to the real app in BOTH themes. The
+     * existing semantic tokens above are untouched, so no current section moves.
+     *
+     * Shades are hand-tuned per usage, NOT a lightness mirror: low-end shades
+     * used as TEXT in dark (e.g. text-gold-300 wordmark) stay legible as text on
+     * WHITE in light — so the ramp "inverts" between modes.
+     * ─────────────────────────────────────────────────────────────────────── */
+    --shadow-strength: 0.45;
+    --grain: 0 0 0; /* dark speckle on light surfaces */
+    --grain-alpha: 0.04;
+
+    /* ink — LIGHT: near-white surfaces (high #) + dark text (low #). */
+    --ink-50: 13 14 13;
+    --ink-100: 28 31 29;
+    --ink-200: 44 49 46;
+    --ink-300: 60 66 62;
+    --ink-400: 79 86 81;
+    --ink-500: 95 102 97;
+    --ink-600: 108 116 110;
+    --ink-700: 209 214 209;
+    --ink-800: 228 231 228;
+    --ink-850: 241 244 241;
+    --ink-900: 248 250 248;
+    --ink-950: 255 255 255;
+
+    /* gold = brand GREEN in light (#16A34A family). */
+    --gold-50: 236 253 243;
+    --gold-100: 209 250 223;
+    --gold-200: 22 101 52;
+    --gold-300: 21 128 61;
+    --gold-400: 22 163 74;
+    --gold-500: 21 128 61;
+    --gold-600: 22 101 52;
+    --gold-700: 20 83 45;
+    --gold-800: 20 83 45;
+    --gold-900: 5 46 22;
+
+    /* sage = calm POSITIVE green (learner bubble, listening, "nailed"). */
+    --sage-50: 236 253 245;
+    --sage-100: 209 250 229;
+    --sage-200: 4 120 87;
+    --sage-300: 10 115 80;
+    --sage-400: 18 163 114;
+    --sage-500: 14 122 85;
+    --sage-600: 10 99 68;
+    --sage-700: 10 82 56;
+    --sage-800: 9 67 47;
+    --sage-900: 6 48 31;
+
+    /* amber-ramp = warm CORRECTION emphasis (never alarm). */
+    --amber-50: 255 251 235;
+    --amber-100: 124 83 16;
+    --amber-200: 146 97 13;
+    --amber-300: 180 83 9;
+    --amber-400: 217 119 6;
+    --amber-500: 180 83 9;
+    --amber-600: 146 64 14;
+    --amber-700: 124 58 12;
+    --amber-800: 102 48 9;
+    --amber-900: 77 36 8;
+
+    /* danger-ramp = red, SYSTEM errors only. */
+    --danger-300: 185 28 28;
+    --danger-500: 220 38 38;
+
+    /* Onboarding warm surfaces — warm-PAPER stage. */
+    --ob-canvas: 247 243 234; /* #F7F3EA warm paper */
+    --ob-canvas-2: 251 248 241; /* #FBF8F1 gradient stop */
+    --ob-card: 255 255 255;
+    --ob-hairline: 231 222 203; /* #E7DECB */
+    --ob-vignette: 226 217 198;
   }
 
   .dark {
@@ -52,6 +130,72 @@
     --amber-soft: 49 40 18;
     --danger: 248 113 113;
     --ring: 200 162 76;
+
+    /* ── App-faithful ramps — DARK (verbatim from the app). ─────────────────── */
+    --shadow-strength: 1;
+    --grain: 255 255 255; /* light speckle on dark surfaces */
+    --grain-alpha: 0.025;
+
+    /* ink — DARK: charcoal surfaces (low #) + light text (high #). */
+    --ink-50: 245 246 245;
+    --ink-100: 230 232 230;
+    --ink-200: 201 205 201;
+    --ink-300: 164 170 164;
+    --ink-400: 119 126 120;
+    --ink-500: 86 93 87;
+    --ink-600: 67 73 70;
+    --ink-700: 54 59 56;
+    --ink-800: 35 38 36;
+    --ink-850: 26 29 27;
+    --ink-900: 20 22 20;
+    --ink-950: 13 14 13;
+
+    /* gold = amber-GOLD (#C8A24C family). */
+    --gold-50: 250 246 236;
+    --gold-100: 243 233 205;
+    --gold-200: 231 210 156;
+    --gold-300: 218 187 110;
+    --gold-400: 207 168 80;
+    --gold-500: 200 162 76;
+    --gold-600: 169 133 58;
+    --gold-700: 134 104 47;
+    --gold-800: 106 82 43;
+    --gold-900: 89 70 38;
+
+    /* sage = muted sage/teal. */
+    --sage-50: 241 246 243;
+    --sage-100: 220 234 226;
+    --sage-200: 188 214 200;
+    --sage-300: 147 188 168;
+    --sage-400: 111 160 142;
+    --sage-500: 85 133 116;
+    --sage-600: 67 107 94;
+    --sage-700: 56 86 77;
+    --sage-800: 47 69 63;
+    --sage-900: 40 58 53;
+
+    /* amber-ramp = soft warm amber. */
+    --amber-50: 252 246 234;
+    --amber-100: 247 232 200;
+    --amber-200: 239 210 147;
+    --amber-300: 231 189 100;
+    --amber-400: 226 185 107;
+    --amber-500: 211 159 68;
+    --amber-600: 182 127 52;
+    --amber-700: 146 97 45;
+    --amber-800: 120 79 43;
+    --amber-900: 101 67 40;
+
+    /* danger-ramp = red. */
+    --danger-300: 239 157 147;
+    --danger-500: 217 83 79;
+
+    /* Onboarding warm surfaces (dark) — warm CHARCOAL, never cold black. */
+    --ob-canvas: 18 17 15;
+    --ob-canvas-2: 24 22 19;
+    --ob-card: 28 26 22;
+    --ob-hairline: 54 49 40;
+    --ob-vignette: 6 6 5;
   }
 
   * {
@@ -141,6 +285,16 @@
   .mask-fade-x {
     -webkit-mask-image: linear-gradient(90deg, transparent, black 8%, black 92%, transparent);
     mask-image: linear-gradient(90deg, transparent, black 8%, black 92%, transparent);
+  }
+
+  /* Subtle premium grain — theme-aware speckle color (matches the app). */
+  .bg-grain {
+    background-image: radial-gradient(
+      circle at 1px 1px,
+      rgb(var(--grain) / var(--grain-alpha)) 1px,
+      transparent 0
+    );
+    background-size: 4px 4px;
   }
 }
 

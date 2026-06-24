@@ -75,20 +75,41 @@ export enum MethodFeatureId {
   SpacedReview = "spaced-review",
 }
 
-/**
- * Correction tone. Calm by design, there is no "wrong". `Nailed` celebrates,
- * the rest are framed as data + a next step. Red is reserved for system errors.
- */
-export enum CorrectionSeverity {
-  Nailed = "nailed",
-  Polish = "polish",
-  Note = "note",
-}
-
 /** Auto-playing demo turn lifecycle. */
 export enum DemoPhase {
   Idle = "idle",
   Listening = "listening",
   Processing = "processing",
   Revealed = "revealed",
+}
+
+/** Who a conversation bubble belongs to in the app-faithful demo. */
+export enum DemoRole {
+  Learner = "learner",
+  Coach = "coach",
+}
+
+/**
+ * The three correction-card kinds, mirroring the app's CorrectionCard:
+ * `Error` (a fix, amber), `Teach` (said it in L1, here's the L2, sage), and
+ * `Clean` (nailed it, sage). Red is never used.
+ */
+export enum DemoCardKind {
+  Error = "error",
+  Teach = "teach",
+  Clean = "clean",
+}
+
+/** Voice-orb visual state in the demo (maps from DemoPhase). */
+export enum DemoOrbState {
+  Idle = "idle",
+  Listening = "listening",
+  Thinking = "thinking",
+  Speaking = "speaking",
+}
+
+/** Input modality toggle in the demo dock. */
+export enum DemoInputMode {
+  Voice = "voice",
+  Text = "text",
 }

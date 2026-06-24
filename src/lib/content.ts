@@ -20,15 +20,16 @@ import {
 
 import {
   BillingInterval,
-  CorrectionSeverity,
+  DemoCardKind,
   FeatureId,
+  Language,
   MethodFeatureId,
   PlanId,
 } from "@/lib/enums";
 import { LANGUAGE_COUNT, LANGUAGES } from "@/lib/languages";
 import { ASSETS, PRICING, SITE } from "@/lib/site";
 import type {
-  DemoExchange,
+  AppDemoBeat,
   Endorsement,
   Feature,
   FaqItem,
@@ -165,56 +166,84 @@ export const HOW_STEPS: readonly HowItWorksStep[] = [
 
 export const DEMO = {
   eyebrow: "See it in action",
-  title: "This is the whole product, in one card.",
+  title: "The real Frank, mid-conversation.",
   subtitle:
-    "Watch Frank teach a real phrase, read it aloud, and catch the mistake you didn't know you were making, playing on a loop. Hear any line, or scrub between examples.",
+    "This is the actual Practice workspace, playing on a loop: you speak, Frank corrects you honestly, and every slip lands in your Corrections panel, across Spanish, French, and Hindi. Hear any line, or scrub between examples.",
   footnote: "No signup. This preview runs entirely in your browser.",
 } as const;
 
-export const DEMO_EXCHANGES: readonly DemoExchange[] = [
+/**
+ * App-faithful demo beats. Language-agnostic and cycled (Spanish → French →
+ * Hindi) so the demo shows Frank's range while reading as the real Practice
+ * workspace. Each is one authentic, teachable honest-correction. Spanish reuses
+ * a real TTS clip; French/Hindi fall back to the browser's speech synthesis.
+ */
+export const APP_DEMO_BEATS: readonly AppDemoBeat[] = [
   {
-    id: "coffee",
-    english: "I'd like a coffee, please",
-    spanish: "Quiero un café, por favor.",
-    gloss: "I want a coffee, please.",
-    audioSrc: ASSETS.audio.coffee,
-    memoryNote: "Locked in: polite requests with “por favor”.",
-    correction: {
-      severity: CorrectionSeverity.Nailed,
-      typeLabel: "Nailed it",
-      said: "Quiero un café, por favor.",
-      fix: "Quiero un café, por favor.",
-      why: "Perfect: natural word order, the polite tag, the accent on café. Exactly how a local would order.",
-    },
-  },
-  {
-    id: "station",
-    english: "Where is the train station?",
-    spanish: "¿Dónde está la estación de tren?",
+    id: "es-station",
+    language: Language.Spanish,
+    locale: "es-ES",
+    l2Label: "Spanish",
+    l1Label: "English",
+    flag: "🇪🇸",
+    l1Flag: "🇬🇧",
+    learnerText: "Where is the train station?",
+    coachText: "¿Dónde está la estación de tren?",
     gloss: "Where is the train station?",
     audioSrc: ASSETS.audio.station,
     memoryNote: "ser vs estar with location. I'll bring this back next time.",
+    sayItBack: { phrase: "¿Dónde está la estación de tren?", gloss: "Where is the train station?" },
     correction: {
-      severity: CorrectionSeverity.Polish,
+      kind: DemoCardKind.Error,
       typeLabel: "ser vs estar",
+      severityLabel: "Polish",
       said: "¿Dónde es la estación?",
       fix: "¿Dónde está la estación?",
       why: "Location uses estar, not ser. “Es” describes what a thing is; “está” tells you where it is.",
     },
   },
   {
-    id: "table",
-    english: "I'd like to book a table for two",
-    spanish: "Me gustaría reservar una mesa para dos.",
-    gloss: "I would like to reserve a table for two.",
-    audioSrc: ASSETS.audio.table,
-    memoryNote: "por vs para, noted on your mistake list.",
+    id: "fr-market",
+    language: Language.French,
+    locale: "fr-FR",
+    l2Label: "French",
+    l1Label: "English",
+    flag: "🇫🇷",
+    l1Flag: "🇬🇧",
+    learnerText: "I went to the market this morning.",
+    coachText: "Je suis allé au marché ce matin.",
+    gloss: "I went to the market this morning.",
+    memoryNote: "être vs avoir with “aller”. Noted for next time.",
+    sayItBack: { phrase: "Je suis allé au marché ce matin.", gloss: "I went to the market this morning." },
     correction: {
-      severity: CorrectionSeverity.Polish,
-      typeLabel: "por vs para",
-      said: "…reservar una mesa por dos.",
-      fix: "…reservar una mesa para dos.",
-      why: "“Para” marks purpose or recipient, a table for two people. “Por” would suggest an exchange or a reason.",
+      kind: DemoCardKind.Error,
+      typeLabel: "être vs avoir",
+      severityLabel: "Polish",
+      said: "J’ai allé au marché ce matin.",
+      fix: "Je suis allé au marché ce matin.",
+      why: "“Aller” takes être in the passé composé, not avoir, so it's “je suis allé”, never “j'ai allé”.",
+    },
+  },
+  {
+    id: "hi-greeting",
+    language: Language.Hindi,
+    locale: "hi-IN",
+    l2Label: "Hindi",
+    l1Label: "English",
+    flag: "🇮🇳",
+    l1Flag: "🇬🇧",
+    learnerText: "How are you? (to someone you've just met)",
+    coachText: "आप कैसे हैं?",
+    gloss: "How are you? (formal)",
+    memoryNote: "tum vs aap (formality). I'll watch for this one.",
+    sayItBack: { phrase: "आप कैसे हैं?", gloss: "How are you? (formal)" },
+    correction: {
+      kind: DemoCardKind.Error,
+      typeLabel: "tum vs aap",
+      severityLabel: "Polish",
+      said: "तुम कैसे हो?",
+      fix: "आप कैसे हैं?",
+      why: "With someone you've just met, use आप (formal “you”) with हैं, not तुम with हो. आप shows respect.",
     },
   },
 ];

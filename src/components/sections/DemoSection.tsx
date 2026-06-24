@@ -1,4 +1,4 @@
-import { CorrectionDemo } from "@/components/demo/CorrectionDemo";
+import { AppDemoWorkspace } from "@/components/appdemo/AppDemoWorkspace";
 import { Reveal } from "@/components/motion/Reveal";
 import { Container } from "@/components/ui/Container";
 import { Section } from "@/components/ui/Section";
@@ -12,8 +12,8 @@ export function DemoSection() {
       <div className="pointer-events-none absolute inset-x-0 top-1/4 h-96 bg-mist" aria-hidden />
       <Container className="relative">
         <SectionHeading eyebrow={DEMO.eyebrow} title={DEMO.title} subtitle={DEMO.subtitle} />
-        <Reveal className="mt-12 flex justify-center">
-          <CorrectionDemo />
+        <Reveal className="mt-12">
+          <AppDemoWorkspace className="mx-auto max-w-5xl" />
         </Reveal>
         <p className="mt-4 text-center text-xs text-fg-subtle">{DEMO.footnote}</p>
       </Container>
