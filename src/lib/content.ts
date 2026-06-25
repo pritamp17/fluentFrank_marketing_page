@@ -517,9 +517,9 @@ export const FAQ_ITEMS: readonly FaqItem[] = [
     answer: `All ${LANGUAGE_COUNT}, available today: ${LANGUAGES.map((language) => language.name).join(", ")}. Frank starts you in your own language and coaches you into any of them, and we add more over time.`,
   },
   {
-    question: "What if I want to practise more than my plan includes?",
+    question: "What happens if I cancel my subscription?",
     answer:
-      "You can top up anytime with tokens, each one a block of extra speaking minutes. Grab a pack whenever you want more conversation: no plan change, no commitment.",
+      "Cancel anytime and you won't be charged again. Your plan stays active through the end of the period you've already paid for, then simply stops renewing. Time you've already used isn't refunded.",
   },
   {
     question: "Do I have to talk out loud?",
