@@ -48,6 +48,9 @@ export enum Language {
   Mandarin = "zh",
   Portuguese = "pt",
   Hindi = "hi",
+  Marathi = "mr",
+  Tamil = "ta",
+  Kannada = "kn",
   Arabic = "ar",
   Russian = "ru",
 }

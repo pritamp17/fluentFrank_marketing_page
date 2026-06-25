@@ -3,8 +3,10 @@ import { Language } from "@/lib/enums";
 /**
  * A single supported target language. Centralized, type-safe source of truth for
  * the hero word-cycle, the Languages section, and any copy that lists what Frank
- * teaches. Spanish is the live flagship; the rest make up the 12-language roster
- * (Duolingo's 2025 most-learned set + high-value business languages).
+ * teaches. Spanish is the live flagship; the rest make up the roster (Duolingo's
+ * 2025 most-learned set + high-value business and Indian regional languages).
+ * LANGUAGE_COUNT is derived from this array, so adding a language updates every
+ * count, list, and the floating-glyph pool automatically.
  */
 export interface LanguageInfo {
   readonly id: Language;
@@ -37,6 +39,9 @@ export const LANGUAGES: readonly LanguageInfo[] = [
   { id: Language.Mandarin, name: "Mandarin", nativeName: "中文", greeting: "你好", note: "World's largest market" },
   { id: Language.Portuguese, name: "Portuguese", nativeName: "Português", greeting: "Olá!", note: "Brazil & beyond" },
   { id: Language.Hindi, name: "Hindi", nativeName: "हिन्दी", greeting: "नमस्ते", note: "1.5B+ speakers" },
+  { id: Language.Marathi, name: "Marathi", nativeName: "मराठी", greeting: "नमस्कार", note: "83M+ across Maharashtra" },
+  { id: Language.Tamil, name: "Tamil", nativeName: "தமிழ்", greeting: "வணக்கம்", note: "One of the oldest living languages" },
+  { id: Language.Kannada, name: "Kannada", nativeName: "ಕನ್ನಡ", greeting: "ನಮಸ್ಕಾರ", note: "Karnataka & India's tech hub" },
   { id: Language.Arabic, name: "Arabic", nativeName: "العربية", greeting: "مرحبًا", note: "Energy & the MENA region", rtl: true },
   { id: Language.Russian, name: "Russian", nativeName: "Русский", greeting: "Привет", note: "Eurasia & STEM" },
 ];

@@ -57,6 +57,9 @@ const GLYPHS: readonly GlyphSpec[] = [
   { lang: Language.French, endonym: false, top: 86, left: 22, size: GlyphSize.Md, delay: 3.6, duration: 8.5, peak: 0.16 },
   { lang: Language.Italian, endonym: false, top: 88, left: 62, size: GlyphSize.Sm, delay: 4.8, duration: 9, peak: 0.13 },
   { lang: Language.Korean, endonym: false, top: 27, left: 64, size: GlyphSize.Sm, delay: 5.7, duration: 7.5, peak: 0.13, accent: true },
+  { lang: Language.Tamil, endonym: true, top: 50, left: 4, size: GlyphSize.Md, delay: 2.7, duration: 8, peak: 0.16, accent: true },
+  { lang: Language.Marathi, endonym: true, top: 22, left: 90, size: GlyphSize.Sm, delay: 6.1, duration: 7.5, peak: 0.14 },
+  { lang: Language.Kannada, endonym: true, top: 67, left: 70, size: GlyphSize.Md, delay: 4.0, duration: 8.5, peak: 0.15 },
 ];
 
 function glyphText(spec: GlyphSpec): string {
